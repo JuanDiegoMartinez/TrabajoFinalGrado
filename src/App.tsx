@@ -7,18 +7,19 @@ import {Provider} from "react-redux";
 
 import combinedReducer from './redux/CombinedReducers';
 import Routing from "./routing/Routing";
+import './res/css/style.scss';
 
 interface Props {}
 interface State {}
 
-class App extends React.Component< Props, State> {
+class App extends React.Component<Props, State> {
 
     //history: Mantiene un registro de la barra de direcciones.
     protected history: History;
     //store: Almacena lo relacionado con redux.
     protected store: Store;
 
-    //Con typescript se necesita pasarle los props y el state al constructor
+    //Con typescript se necesita pasarle por lo menos los props
     constructor(props: Props, state: State) {
         super(props, state);
         this.history = createBrowserHistory();
@@ -30,7 +31,7 @@ class App extends React.Component< Props, State> {
         this.store = createStore(combinedReducer, composeEnhancers(applyMiddleware(middleware, thunk)));
     }
 
-    render() {
+    render() : React.ReactNode {
         return (
             //Como redux no está hecho para funcionar con react necesitamos hacer un wrapper
             //Este wrapper envuelve todos los componentes react para que estos puedan acceder a la store
