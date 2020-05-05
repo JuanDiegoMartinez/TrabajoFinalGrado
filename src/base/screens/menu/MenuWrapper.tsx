@@ -40,7 +40,9 @@ export default class MenuWrapper extends React.Component<Props, State> {
                 </Sidebar>
 
                 <main className="main">
-                    {this.props.children}
+                    <div className="maindiv">
+                        {this.props.children}
+                    </div>
                 </main>
 
             </div>

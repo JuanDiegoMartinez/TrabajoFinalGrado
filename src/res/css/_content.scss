@@ -1,0 +1,18 @@
+
+.main {
+  margin-left: 250px;
+  margin-top: 72px;
+  background: $beepark-background;
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  overflow-y: scroll;
+
+  .maindiv {
+    padding-top: 50px;
+  }
+}
+
+

@@ -22,7 +22,7 @@ export default abstract class LoggedScreen<P = {}, S = {}> extends Screen<P, S> 
         }
 
          */
-        return <MenuWrapper>{this.renderScreen()}</MenuWrapper>;
+        return<MenuWrapper>{this.renderScreen()}</MenuWrapper>;
     }
 
     /*
