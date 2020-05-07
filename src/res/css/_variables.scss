@@ -1,11 +1,35 @@
-$beepark: #0063a2;
-$beepark-yellow: #ffcc00;
-$beepark-gray: #607D8B;
 $beepark-darkgray: #515961;
-$beepark-black: #222;
 $beepark-background: lighten($beepark-darkgray, 60%);
 
 // grosor de sombra, donde empieza desde el top, difuminación, color
-$shadow: 2px 0 7px rgba(0, 0, 0, .3);
+$shadow: 2px 0 7px rgba(0, 0, 0, .5);
 
-$blue: #0063a2;
+//primary - se usa para representar los elementos de interfaz de usuario primarios.
+$primary-light: #35baf6;
+$primary-main: #03a9f4;
+$primary-dark: #0276aa;
+
+//secondary - se usa para representar los elementos de interfaz de usuario secundarios.
+$secondary-light: #33bfff;
+$secondary-main: #00b0ff;
+$secondary-dark: #007bb2;
+
+//error - se usa para representar los elementos de interfaz de usuario de los cuales estar alerta.
+$error-light: #e57373;
+$error-main: #f44336;
+$error-dark: #d32f2f;
+
+//warning - se usa para representar posibles acciones peligrosas o mensajes importantes.
+$warning-light: #ffb74d;
+$warning-main: #ff9800;
+$warning-dark: #f57c00;
+
+//info - se utiliza para presentar información al usuario de que es neutral y no necesariamente importante.
+$info-light: #64b5f6;
+$info-main: #2196f3;
+$info-dark: #1976d2;
+
+//success - utilizado para indicar la finalización exitosa de una acción que el usuario activó.
+$success-light: #81c784;
+$success-main: #4caf50;
+$success-dark: #388e3c;
