@@ -9,17 +9,11 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import {User} from "../../models/User";
+import {validate, submitValidate} from "./validation/Validation"
 
 
 interface UserFormProps {
     onFormSubmit: (values: User) => void
-}
-
-interface IErrors {
-    email: string | undefined,
-    email2: string | undefined,
-    password: string | undefined,
-    password2: string | undefined,
 }
 
 export interface FormInputProps extends WrappedFieldProps {
@@ -74,6 +68,9 @@ class RegisterView extends React.Component<Props> {
 
     onSubmit = (formValues: any) : void => {
 
+        //Comprueba que todos los valores sean correctos, si no son correctos no envía en formulario
+        submitValidate(formValues);
+
         const user: User = {
             user: formValues.user,
             nombre: formValues.nombre,
@@ -93,10 +90,10 @@ class RegisterView extends React.Component<Props> {
                     <Avatar className="avatar">
                         <LockOutlinedIcon className="icon"/>
                     </Avatar>
-                    <Typography component="h1">
+                    <Typography component="h1" className="titulo">
                         Crear cuenta
                     </Typography>
-                    <form name="form" onSubmit={this.props.handleSubmit(this.onSubmit)} className="form">
+                    <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="form">
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={6}>
                                 <Field name="user" component={this.renderInput} label="Nombre de usuario" type="text"/>
@@ -130,7 +127,7 @@ class RegisterView extends React.Component<Props> {
                                     className="boton"
                                     onClick={() => this.props.reset()}
                                 >
-                                    Cancelar
+                                    Reset
                                 </Button>
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -150,39 +147,6 @@ class RegisterView extends React.Component<Props> {
             </Container>
         );
     }
-}
-
-const validate = (formValues: any) : IErrors | any =>  {
-
-    const errors : IErrors = {
-        email: undefined,
-        email2: undefined,
-        password: undefined,
-        password2: undefined
-    }
-
-    //Mirar en la base de datos si el user y el email coinciden
-
-    if(formValues.email !== formValues.email2) {
-        errors.email = "El email no coincide";
-        errors.email2 = "El email no coincide";
-    }
-
-    if(formValues.password !== formValues.password2) {
-        errors.password = "La contraseña no coincide";
-        errors.password2 = "La contraseña no coincide";
-    }
-
-    if(formValues.password !== undefined && formValues.password2 !== undefined) {
-
-        if(formValues.password.length < 7 || formValues.password2.length < 7) {
-            errors.password = "La contraseña no coincide";
-            errors.password2 = "La contraseña no coincide";
-        }
-    }
-
-
-    return errors;
 }
 
 export default reduxForm<User, UserFormProps>({

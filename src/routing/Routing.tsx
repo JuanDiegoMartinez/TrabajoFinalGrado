@@ -1,8 +1,9 @@
 import React from "react";
 import {Router, Route} from 'react-router-dom';
-import {ROUTE_HOME, ROUTE_USER_ADD, ROUTE_USER_DETAIL, ROUTE_USER_EDIT, ROUTE_USERS} from "./routes";
+import {ROUTE_HOME, ROUTE_LOGIN, ROUTE_REGISTER} from "./routes";
 import {History} from "history";
 import RegisterScreen from "../modules/register/RegisterScreen";
+import LoginScreen from "../modules/login/LoginScreen";
 
 export interface RoutingProps {
     history: History,
@@ -14,7 +15,8 @@ export default class Routing extends React.Component<RoutingProps, any> {
         return(
             <div>
                 <Router history={this.props.history}>
-                    <Route path={ROUTE_HOME} exact component={RegisterScreen}/>
+                    <Route path={ROUTE_REGISTER} exact component={RegisterScreen}/>
+                    <Route path={ROUTE_LOGIN} exact component={LoginScreen}/>
                 </Router>
             </div>
         );
