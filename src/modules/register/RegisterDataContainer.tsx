@@ -1,6 +1,6 @@
 import React, {Dispatch} from 'react';
 import RegisterView from "./RegisterView";
-import {User} from "../../models/User";
+import {User} from "../../models/data/User";
 import {newUser} from "./actions/RegisterActions";
 import {connect} from "react-redux";
 
@@ -8,11 +8,11 @@ interface ReduxState {
     cuenta2: any
 }
 
-interface IProps {
+interface ActionProps {
     newUser: (formValues: User) => any
 }
 
-type Props = IProps & ReduxState;
+type Props = ActionProps & ReduxState;
 
 class RegisterDataContainer extends React.Component<Props, {}> {
 
@@ -33,7 +33,6 @@ class RegisterDataContainer extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: any) : ReduxState => {
-
     return {
         cuenta2: state.RegisterReducer.cuenta
     }

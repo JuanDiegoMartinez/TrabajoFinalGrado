@@ -4,6 +4,7 @@ import {ROUTE_HOME, ROUTE_LOGIN, ROUTE_REGISTER} from "./routes";
 import {History} from "history";
 import RegisterScreen from "../modules/register/RegisterScreen";
 import LoginScreen from "../modules/login/LoginScreen";
+import NewsScreen from "../modules/news/NewsScreen";
 
 export interface RoutingProps {
     history: History,
@@ -15,6 +16,7 @@ export default class Routing extends React.Component<RoutingProps, any> {
         return(
             <div>
                 <Router history={this.props.history}>
+                    <Route path={ROUTE_HOME} exact component={NewsScreen}/>
                     <Route path={ROUTE_REGISTER} exact component={RegisterScreen}/>
                     <Route path={ROUTE_LOGIN} exact component={LoginScreen}/>
                 </Router>

@@ -1,6 +1,6 @@
 import React from 'react';
 import LoginView from "./LoginView";
-import {Login} from "../../models/Login";
+import {Login} from "../../models/data/Login";
 
 export default class LoginDataContainer extends React.Component<{}, {}> {
 
