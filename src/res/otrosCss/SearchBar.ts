@@ -13,5 +13,5 @@ export const inputB = {
 };
 
 export const grid = {
-    marginBottom: '20px',
+    marginBottom: '40px',
 }

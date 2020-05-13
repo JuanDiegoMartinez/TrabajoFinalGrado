@@ -1,0 +1,40 @@
+.tableContainer {
+  border-radius: 10px;
+  box-shadow: $shadow;
+
+  .tabla {
+
+    .fila {
+      cursor: pointer;
+      border-bottom: 2px dotted grey;
+      background: white;
+      border-radius: 10px;
+
+      &:hover {
+        background: rgba(255, 255, 255, .2);
+      }
+
+      .col1 {
+        width: 20%;
+        padding: 8px;
+
+        .image {
+          width: 100%;
+          border-radius: 8px;
+        }
+      }
+
+      .col2 {
+
+        .titulo {
+          font-size: 20px;
+          margin-bottom: 10px;
+          margin-top: -15px;
+        }
+      }
+    }
+  }
+}
+
+
+

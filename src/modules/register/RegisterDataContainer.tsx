@@ -1,4 +1,4 @@
-import React, {Dispatch} from 'react';
+import React from 'react';
 import RegisterView from "./RegisterView";
 import {User} from "../../models/data/User";
 import {newUser} from "./actions/RegisterActions";

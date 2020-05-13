@@ -1,6 +1,6 @@
 import React from "react";
 import {Nav} from "react-bootstrap";
-import {ROUTE_HOME, ROUTE_USER_ADD} from "../../../../routing/routes";
+import {ROUTE_HOME} from "../../../../routing/routes";
 import {matchPath, RouteComponentProps, withRouter} from "react-router-dom";
 import MenuItem from "./MenuItem";
 //import home from "../../../../res/img/home.png";
@@ -38,48 +38,6 @@ class SideBar extends React.Component<Props> {
                     route={ROUTE_HOME}
                     title={"User List"}
                     //image={home}
-                />
-
-                <MenuItem className="menuItem"
-                    active={this.isActive([ROUTE_USER_ADD], true)}
-                    route={ROUTE_USER_ADD}
-                    title={"New User"}
-                    //image={newUser}
-                />
-
-                <MenuItem className="menuItem"
-                          active={this.isActive([ROUTE_USER_ADD], true)}
-                          route={ROUTE_USER_ADD}
-                          title={"New User"}
-                    //image={newUser}
-                />
-
-                <MenuItem className="menuItem"
-                          active={this.isActive([ROUTE_USER_ADD], true)}
-                          route={ROUTE_USER_ADD}
-                          title={"New User"}
-                    //image={newUser}
-                />
-
-                <MenuItem className="menuItem"
-                          active={this.isActive([ROUTE_USER_ADD], true)}
-                          route={ROUTE_USER_ADD}
-                          title={"New User"}
-                    //image={newUser}
-                />
-
-                <MenuItem className="menuItem"
-                          active={this.isActive([ROUTE_USER_ADD], true)}
-                          route={ROUTE_USER_ADD}
-                          title={"New User"}
-                    //image={newUser}
-                />
-
-                <MenuItem className="menuItem"
-                          active={this.isActive([ROUTE_USER_ADD], true)}
-                          route={ROUTE_USER_ADD}
-                          title={"New User"}
-                    //image={newUser}
                 />
 
                 <MenuItem className="menuItem"

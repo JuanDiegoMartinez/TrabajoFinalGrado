@@ -1,25 +1,18 @@
 import React from "react";
-import {Grid, TableBody, TableCell, TableRow, Table, TableContainer} from "@material-ui/core";
+import {Grid, Table, TableContainer} from "@material-ui/core";
 
+export default abstract class TableComponent<T, S> extends React.Component<T, any> {
 
-export default abstract class TableComponent<T> extends React.Component<T> {
-
-    abstract renderContent() : React.ReactNodeArray;
+    abstract renderContent() : React.ReactNode;
 
     render() : React.ReactNode {
 
         return(
             <Grid container>
                 <Grid item sm={12}>
-                    <TableContainer>
-                        <Table>
-                            <TableBody>
-                                <TableRow onClick={() => console.log("hehehe")}>
-                                    <TableCell>
-                                        {this.renderContent()}
-                                    </TableCell>
-                                </TableRow>
-                            </TableBody>
+                    <TableContainer className="tableContainer">
+                        <Table className="tabla">
+                            {this.renderContent()}
                         </Table>
                     </TableContainer>
                 </Grid>

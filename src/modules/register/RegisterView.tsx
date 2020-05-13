@@ -1,5 +1,5 @@
 import React from "react";
-import {Field, Form, formValues, InjectedFormProps, reduxForm, reset, WrappedFieldProps} from "redux-form";
+import {Field, InjectedFormProps, reduxForm, WrappedFieldProps} from "redux-form";
 import Container from "@material-ui/core/Container";
 import Avatar from "@material-ui/core/Avatar";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -7,16 +7,15 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
 import {User} from "../../models/data/User";
-import {validate, submitValidate} from "./validation/Validation"
+import {submitValidate, validate} from "./validation/Validation"
 
 
 interface UserFormProps {
     onFormSubmit: (values: User) => void
 }
 
-export interface FormInputProps extends WrappedFieldProps {
+interface FormInputProps extends WrappedFieldProps {
     name: string,
     label: string,
     type: string
