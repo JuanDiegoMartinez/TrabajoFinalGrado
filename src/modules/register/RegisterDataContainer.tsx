@@ -1,23 +1,23 @@
 import React from 'react';
 import RegisterView from "./RegisterView";
-import {User} from "../../models/data/User";
+import {UserRegister} from "../../models/data/User";
 import {newUser} from "./actions/RegisterActions";
 import {connect} from "react-redux";
 
 interface ReduxState {
-    cuenta2: any
+    nuevaCuenta: any
 }
 
 interface ActionProps {
-    newUser: (formValues: User) => any
+    newUser: (formValues: UserRegister) => any
 }
 
 type Props = ActionProps & ReduxState;
 
 class RegisterDataContainer extends React.Component<Props, {}> {
 
-    onRegisterSubmit = (values: User) : void => {
-        //Insertar en bbdd e ir a login
+    onRegisterSubmit = (values: UserRegister) : void => {
+        //Insertar en bbdd e ir a login o modify data
         this.props.newUser(values);
     }
 
@@ -26,7 +26,6 @@ class RegisterDataContainer extends React.Component<Props, {}> {
         return (
             <div>
             <RegisterView onFormSubmit={this.onRegisterSubmit}/>
-            {this.props.cuenta2}
             </div>
         );
     }
@@ -34,7 +33,7 @@ class RegisterDataContainer extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: any) : ReduxState => {
     return {
-        cuenta2: state.RegisterReducer.cuenta
+        nuevaCuenta: state.RegisterReducer.nuevaCuenta
     }
 }
 

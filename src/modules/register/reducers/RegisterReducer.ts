@@ -4,7 +4,7 @@ export default (state: any = {}, action: Action) : {} => {
 
     switch (action.type) {
         case NEW_ACCOUNT:
-            return {...state, cuenta: action.payload};
+            return {...state, nuevaCuenta: action.payload};
         default:
             return state;
     }

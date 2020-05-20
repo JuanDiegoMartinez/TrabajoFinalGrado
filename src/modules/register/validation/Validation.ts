@@ -1,4 +1,6 @@
 import {SubmissionError} from "redux-form";
+import axios from "../../../connection/Axios";
+import {emit} from "cluster";
 
 interface IErrors {
     user: string | undefined,
@@ -49,10 +51,11 @@ export const validate = (formValues: any) : IErrors | any =>  {
     return errors;
 }
 
-export const submitValidate = (formValues: any) : void => {
+export const handleButtonValidate = async (formValues: any) => {
 
     //if nombre de usuario and email no están en la bbdd
 
+    //Compprueba que el email coincide
     if (formValues.email !== formValues.email2) {
 
         throw new SubmissionError({
@@ -61,6 +64,7 @@ export const submitValidate = (formValues: any) : void => {
         })
     }
 
+    //Comprueba que la contraseñas coinciden
     if (formValues.password === formValues.password2) {
 
         if (formValues.password.length < 6) {
@@ -70,12 +74,40 @@ export const submitValidate = (formValues: any) : void => {
                 password2: "La contraseña no puede tener menos de 6 caracteres"
             })
         }
-    }
-    else {
+    } else {
 
         throw new SubmissionError({
             password: "La contraseña no coincide",
             password2: "La contraseña no coincide"
         })
     }
+
+    let compruebaAliasyEmail = await handleComprobaciones(formValues.user, formValues.email);
+
+    if (compruebaAliasyEmail.estaAlias) {
+        throw new SubmissionError({
+            user: "El nombre de usuario ya esta en uso"
+        })
+    }
+
+    if (compruebaAliasyEmail.estaEmail) {
+        throw new SubmissionError({
+            email: "El email ya esta en uso",
+            email2: "El email ya esta en uso"
+        })
+    }
+
+}
+
+//Comprueba que el alias y el email no estén en la bbdd
+export const handleComprobaciones= async (alias: string, email: string): Promise<any> => {
+
+    let aliasEmail = {
+        alias,
+        email
+    };
+
+    let compruebaAliasyEmail = await axios.post("/compruebaAliasyEmail", aliasEmail);
+
+    return compruebaAliasyEmail.data;
 }

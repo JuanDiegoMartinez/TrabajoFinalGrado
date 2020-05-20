@@ -16,12 +16,12 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import {Field, InjectedFormProps, reduxForm, WrappedFieldProps} from "redux-form";
-import {User} from "../../models/data/User";
 import {validate} from "../register/validation/Validation";
+import {UserRegister} from "../../models/data/User";
 
 
 interface UserFormProps {
-    onFormSubmit: (values: User) => void
+    onFormSubmit: (values: UserRegister) => void
 }
 
 interface FormInputProps extends WrappedFieldProps {
@@ -30,7 +30,7 @@ interface FormInputProps extends WrappedFieldProps {
     type: string
 }
 
-type Props = InjectedFormProps<User, UserFormProps> & UserFormProps;
+type Props = InjectedFormProps<UserRegister, UserFormProps> & UserFormProps;
 
 interface State {
     picture: any
@@ -214,7 +214,7 @@ class ModifyDataView extends React.Component<Props, State> {
     }
 }
 
-export default reduxForm<User, UserFormProps>({
+export default reduxForm<UserRegister, UserFormProps>({
     form: 'modifyForm',
     enableReinitialize: true,
 })(ModifyDataView);

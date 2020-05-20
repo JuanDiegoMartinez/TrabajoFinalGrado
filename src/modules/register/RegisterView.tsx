@@ -2,17 +2,17 @@ import React from "react";
 import {Field, InjectedFormProps, reduxForm, WrappedFieldProps} from "redux-form";
 import Container from "@material-ui/core/Container";
 import Avatar from "@material-ui/core/Avatar";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import {User} from "../../models/data/User";
-import {submitValidate, validate} from "./validation/Validation"
+import {UserRegister} from "../../models/data/User";
+import {handleButtonValidate, validate} from "./validation/Validation"
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 
 
 interface UserFormProps {
-    onFormSubmit: (values: User) => void
+    onFormSubmit: (values: UserRegister) => void
 }
 
 interface FormInputProps extends WrappedFieldProps {
@@ -21,7 +21,7 @@ interface FormInputProps extends WrappedFieldProps {
     type: string
 }
 
-type Props = InjectedFormProps<User, UserFormProps> & UserFormProps;
+type Props = InjectedFormProps<UserRegister, UserFormProps> & UserFormProps;
 
 class RegisterView extends React.Component<Props> {
 
@@ -65,12 +65,12 @@ class RegisterView extends React.Component<Props> {
         }
     }
 
-    onSubmit = (formValues: any) : void => {
+    handleFormSubmit = async (formValues: any) : Promise<void> => {
 
         //Comprueba que todos los valores sean correctos, si no son correctos no envía en formulario
-        submitValidate(formValues);
+        await handleButtonValidate(formValues);
 
-        const user: User = {
+        const user: UserRegister = {
             user: formValues.user,
             nombre: formValues.nombre,
             email: formValues.email,
@@ -87,12 +87,12 @@ class RegisterView extends React.Component<Props> {
             <Container maxWidth="md" className="container">
                 <div className="div">
                     <Avatar className="avatar">
-                        <LockOutlinedIcon className="icon"/>
+                        <AssignmentIndIcon className="icon"/>
                     </Avatar>
                     <Typography component="h1" className="titulo">
                         Crear cuenta
                     </Typography>
-                    <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="form">
+                    <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)} className="form">
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={6}>
                                 <Field name="user" component={this.renderInput} label="Nombre de usuario" type="text"/>
@@ -126,7 +126,7 @@ class RegisterView extends React.Component<Props> {
                                     className="boton"
                                     onClick={() => this.props.reset()}
                                 >
-                                    Reset
+                                    Vaciar campos
                                 </Button>
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -148,7 +148,7 @@ class RegisterView extends React.Component<Props> {
     }
 }
 
-export default reduxForm<User, UserFormProps>({
+export default reduxForm<UserRegister, UserFormProps>({
     form: 'registerForm',
     enableReinitialize: true,
     validate
