@@ -9,6 +9,8 @@ import Button from "@material-ui/core/Button";
 import {UserRegister} from "../../models/data/User";
 import {handleButtonValidate, validate} from "./validation/Validation"
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import {Link} from "@material-ui/core";
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 
 interface UserFormProps {

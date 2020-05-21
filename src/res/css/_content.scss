@@ -8,9 +8,12 @@
   right: 0;
   left: 0;
   overflow-y: scroll;
+  overflow-x: hidden;
 
   .maindiv {
     padding-top: 50px;
+    padding-left: 10px;
+    padding-right: 8px;
     margin-bottom: 20px;
   }
 }

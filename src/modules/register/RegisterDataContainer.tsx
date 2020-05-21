@@ -3,9 +3,13 @@ import RegisterView from "./RegisterView";
 import {UserRegister} from "../../models/data/User";
 import {newUser} from "./actions/RegisterActions";
 import {connect} from "react-redux";
+import {Alert} from "@material-ui/lab";
+import {Link, Modal} from "@material-ui/core";
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import ModalComponent from "../../models/templates/ModalComponent";
 
 interface ReduxState {
-    nuevaCuenta: any
+    nuevaCuentaCreada: boolean
 }
 
 interface ActionProps {
@@ -25,7 +29,8 @@ class RegisterDataContainer extends React.Component<Props, {}> {
 
         return (
             <div>
-            <RegisterView onFormSubmit={this.onRegisterSubmit}/>
+                <ModalComponent open={this.props.nuevaCuentaCreada}/>
+                <RegisterView onFormSubmit={this.onRegisterSubmit}/>
             </div>
         );
     }
@@ -33,7 +38,7 @@ class RegisterDataContainer extends React.Component<Props, {}> {
 
 const mapStateToProps = (state: any) : ReduxState => {
     return {
-        nuevaCuenta: state.RegisterReducer.nuevaCuenta
+        nuevaCuentaCreada: state.RegisterReducer.nuevaCuenta
     }
 }
 

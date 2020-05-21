@@ -1,8 +1,7 @@
-import {Action, NEW_ACCOUNT} from "../../../redux/Types";
+import {NEW_ACCOUNT} from "../../../redux/Types";
 import {Dispatch} from "react";
 import axios from "../../../connection/Axios";
 import {UserRegister} from "../../../models/data/User";
-
 
 export const newUser = (formValues: UserRegister) => async (dispatch: Dispatch<any>) => {
 
@@ -13,6 +12,4 @@ export const newUser = (formValues: UserRegister) => async (dispatch: Dispatch<a
         type: NEW_ACCOUNT,
         payload: response.data
     })
-
-    //history.push('/');
 }

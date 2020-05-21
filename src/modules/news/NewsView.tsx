@@ -1,8 +1,6 @@
 import React from "react";
 import SearchBar from "../../models/templates/SearchBar";
 import Container from "@material-ui/core/Container";
-import {ContainerSinPadding} from "../../res/otrosCss/ContainerSinPadding";
-import TableComponent from "../../models/templates/TableComponent";
 import {News} from "../../models/data/News";
 import NewsViewTable from "./NewsViewTable";
 
@@ -83,7 +81,7 @@ export default class NewsView extends React.Component<NewsViewProps> {
         ];
 
         return (
-            <Container maxWidth="md" style={ContainerSinPadding}>
+            <Container maxWidth="md">
                 <SearchBar/>
                 <NewsViewTable data={prueba}/>
             </Container>

@@ -1,5 +1,4 @@
 import React from "react";
-import {ContainerSinPadding} from "../../res/otrosCss/ContainerSinPadding";
 import Container from "@material-ui/core/Container";
 import SearchBar from "../../models/templates/SearchBar";
 import SimpleTabs from "./tabs/Pestanas";
@@ -10,7 +9,7 @@ export default class VideoGamesView extends React.Component<{}, {}> {
 
     render(): React.ReactNode {
         return (
-            <Container maxWidth="md" style={ContainerSinPadding}>
+            <Container maxWidth="md">
                 <SearchBar/>
                 <SimpleTabs/>
                 <div className="div">
