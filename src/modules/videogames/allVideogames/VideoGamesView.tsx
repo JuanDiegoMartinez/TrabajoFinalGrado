@@ -1,11 +1,22 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
-import SearchBar from "../../models/templates/SearchBar";
-import SimpleTabs from "./tabs/Pestanas";
+import SearchBar from "../../../models/templates/SearchBar";
+import SimpleTabs from "../tabs/Pestanas";
 import {Grid} from "@material-ui/core";
-import {gridContainer, gridItem} from "../../res/otrosCss/VideogamesList";
+import {gridContainer, gridItem} from "../../../res/otrosCss/VideogamesList";
+import axios from "../../../connection/Axios";
 
 export default class VideoGamesView extends React.Component<{}, {}> {
+
+    componentWillMount(): void {
+
+        console.log("mierdaseca")
+
+        axios.get("/unicaPeticionApiVideojuegos").then(r => {
+            console.log("hola");
+        })
+    }
+
 
     render(): React.ReactNode {
         return (

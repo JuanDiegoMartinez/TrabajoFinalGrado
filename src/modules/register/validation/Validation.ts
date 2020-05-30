@@ -99,7 +99,7 @@ export const handleButtonValidate = async (formValues: any) => {
 }
 
 //Comprueba que el alias y el email no estén en la bbdd
-export const handleComprobaciones= async (alias: string, email: string): Promise<any> => {
+export const handleComprobaciones = async (alias: string, email: string): Promise<any> => {
 
     let aliasEmail = {
         alias,

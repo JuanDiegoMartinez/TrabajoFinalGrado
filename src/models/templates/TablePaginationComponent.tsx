@@ -84,7 +84,7 @@ export default class TablePaginationComponent extends React.Component<Props, Sta
                         inputProps: { 'aria-label': 'rows per page' },
                         native: true,
                     }}
-                    onChangePage={(e, page: number) => console.log("fasdf")}
+                    onChangePage={(e: any, page: number) => console.log("fasdf")}
                     onChangeRowsPerPage={this.handleChangeRowsPerPage}
                     ActionsComponent={this.tablePaginationActions}
                 />

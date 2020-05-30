@@ -3,9 +3,6 @@ import RegisterView from "./RegisterView";
 import {UserRegister} from "../../models/data/User";
 import {newUser} from "./actions/RegisterActions";
 import {connect} from "react-redux";
-import {Alert} from "@material-ui/lab";
-import {Link, Modal} from "@material-ui/core";
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import ModalComponent from "../../models/templates/ModalComponent";
 
 interface ReduxState {

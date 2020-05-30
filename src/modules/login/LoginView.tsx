@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import {Field, InjectedFormProps, reduxForm, WrappedFieldProps} from "redux-form";
 import {Login} from "../../models/data/Login";
+import {handleButtonValidate} from "./validation/Validation";
 
 interface LoginFormProps {
     onFormSubmit: (values: Login) => void
@@ -44,7 +45,10 @@ class LoginView extends React.Component<Props> {
         );
     }
 
-    onSubmit = (formValues: Login) : void => {
+    handleFormSubmit = async (formValues: Login) : Promise<void> => {
+
+        //Comprueba que todos los valores sean correctos, si no son correctos no envía en formulario
+        await handleButtonValidate(formValues);
 
         this.props.onFormSubmit(formValues);
     }
@@ -60,10 +64,10 @@ class LoginView extends React.Component<Props> {
                     <Typography component="h1" className="titulo">
                         Iniciar Sesión
                     </Typography>
-                    <form className="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
+                    <form className="form" onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
-                                <Field name="user" component={this.renderInput} label="Nombre de usuario" type="text"/>
+                                <Field name="email" component={this.renderInput} label="Correo electrónico" type="email"/>
                             </Grid>
                             <Grid item xs={12}>
                                 <Field name="password" component={this.renderInput} label="Contraseña" type="password"/>
@@ -78,19 +82,19 @@ class LoginView extends React.Component<Props> {
                                     color="primary"
                                     className="boton"
                                 >
-                                    Sign In
+                                    Iniciar sesión
                                 </Button>
                             </Grid>
                         </Grid>
                         <Grid container>
                             <Grid item xs>
                                 <Link href="#" variant="body2">
-                                    Forgot password? (posible fuera)
+                                    Olvidaste la contraseña? (posible gmail)
                                 </Link>
                             </Grid>
                             <Grid item>
                                 <Link href="#" variant="body2">
-                                    {"No tienes cuenta? Create una!"}
+                                    No tienes cuenta? Create una!
                                 </Link>
                             </Grid>
                         </Grid>
