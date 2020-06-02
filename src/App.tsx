@@ -8,6 +8,7 @@ import {Provider} from "react-redux";
 import combinedReducer from './redux/CombinedReducers';
 import Routing from "./routing/Routing";
 import './res/css/style.scss';
+import history from "./history";
 
 interface Props {}
 interface State {}
@@ -36,7 +37,7 @@ class App extends React.Component<Props, State> {
             //Como redux no está hecho para funcionar con react necesitamos hacer un wrapper
             //Este wrapper envuelve todos los componentes react para que estos puedan acceder a la store
             <Provider store={this.store}>
-                <Routing history={this.history} />
+                <Routing history={history} />
             </Provider>
         );
     }

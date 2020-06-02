@@ -10,9 +10,14 @@ interface NewViewProps {
 
 export default class NewView extends React.Component<NewViewProps, {}> {
 
+    componentDidMount(): void {
+        // @ts-ignore
+        document.getElementById("textoNoticia").innerHTML = this.props.noticia.content;
+    }
+
     render(): React.ReactNode {
 
-        const {author, title, urlImage, content, published} = this.props.noticia;
+        const {author, title, urlImage, published, urlNews} = this.props.noticia;
 
         return (
             <Container maxWidth="md" className="container">
@@ -26,9 +31,10 @@ export default class NewView extends React.Component<NewViewProps, {}> {
                     <Grid container spacing={3}>
                         <Grid className="grid" item xs={12}>
                             <img className="imagen" src={urlImage} />
-                            <aside className="texto">
-                                {content}
+                            <aside className="texto" id="textoNoticia">
                             </aside>
+                            <p><strong>Enlace de la noticia: </strong></p>
+                            <a href={urlNews} target="_blank">{urlNews}</a>
                         </Grid>
                     </Grid>
                 </div>

@@ -21,6 +21,7 @@ class NavBar extends React.Component<IProps, IState> {
 
     componentWillMount(): void {
 
+        /*
         let response = undefined;
 
         axios.get("/session").then((resp) => {
@@ -43,10 +44,12 @@ class NavBar extends React.Component<IProps, IState> {
                 hayUser: true
             })
         }
+
+         */
     }
 
     render() : React.ReactNode {
-
+        /*
         let nombre;
 
         if (!this.state.hayUser) {
@@ -57,11 +60,13 @@ class NavBar extends React.Component<IProps, IState> {
             nombre = this.state.usuario.user;
         }
 
+         */
+
         return (
             <Navbar className="navbar">
                 <Navbar.Brand>
                     <Link to="/"> Volver inicio </Link>
-                    <p>{nombre}</p>
+                    <p>fdgsfdgdfg</p>
                 </Navbar.Brand>
             </Navbar>
         );

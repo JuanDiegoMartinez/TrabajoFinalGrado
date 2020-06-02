@@ -24,7 +24,7 @@ export default class TablePaginationComponent extends React.Component<Props, Sta
         this.setState({
             count: this.props.numberOfRows,
             page: 0,
-            rowsPerPage: 10,
+            rowsPerPage: 5,
         });
     }
 

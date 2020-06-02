@@ -18,7 +18,7 @@ export default class NewsViewTable extends TableComponent<NewsViewTableProps, St
 
     componentWillMount(): void {
         this.setState({
-            rowsPerPage: 10,
+            rowsPerPage: 5,
             page: 0
         })
     }

@@ -3,12 +3,34 @@ import {InputBase} from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import {grid, inputB, searchI} from "../../res/otrosCss/SearchBar";
 import Grid from "@material-ui/core/Grid";
+import {InjectedFormProps, reduxForm, WrappedFieldProps, Field} from "redux-form";
 
-export default class SearchBar extends React.Component<{}, {}> {
+interface SearchFormProps {
+    onFormSubmit: (palabra: string) => void
+}
 
-    formSubmit = (e: { preventDefault: () => void; }) : any => {
-        e.preventDefault();
-        console.log("formulario enviado");
+interface FormInputProps extends WrappedFieldProps {
+    name: string
+}
+
+type Props = InjectedFormProps<{}, SearchFormProps> & SearchFormProps;
+
+class SearchBar extends React.Component<Props> {
+
+    handleFormSubmit = (formValues: any) : void => {
+        this.props.onFormSubmit(formValues.busqueda);
+    }
+
+    //formProps contiene las funciones y datos
+    renderInput = (formProps : FormInputProps) : React.ReactNode => {
+
+        return(
+            <InputBase
+                placeholder="Search..."
+                style={inputB}
+                inputProps={{...formProps.input}}
+            />
+        );
     }
 
     render() : React.ReactNode {
@@ -19,14 +41,16 @@ export default class SearchBar extends React.Component<{}, {}> {
                     <SearchIcon style={searchI}/>
                 </Grid>
                 <Grid item xs={12} sm={11}>
-                    <form onSubmit={this.formSubmit}>
-                    <InputBase
-                        placeholder="Search..."
-                        style={inputB}
-                    />
+                    <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
+                        <Field component={this.renderInput} name="busqueda"/>
                     </form>
                 </Grid>
             </Grid>
         );
     }
 }
+
+export default reduxForm<{}, SearchFormProps>({
+    form: 'searchForm',
+    enableReinitialize: true
+})(SearchBar);

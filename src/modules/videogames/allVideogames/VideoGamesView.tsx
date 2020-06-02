@@ -11,17 +11,18 @@ export default class VideoGamesView extends React.Component<{}, {}> {
     componentWillMount(): void {
 
         console.log("mierdaseca")
-
-        axios.get("/unicaPeticionApiVideojuegos").then(r => {
+        /*
+        axios.get("/unicaPeticionApi").then(r => {
             console.log("hola");
         })
+         */
     }
 
 
     render(): React.ReactNode {
         return (
             <Container maxWidth="md">
-                <SearchBar/>
+                <p>Aquí va la searchbar</p>
                 <SimpleTabs/>
                 <div className="div">
                     <Grid container spacing={3} style={gridContainer}>

@@ -10,20 +10,12 @@ interface NewsViewProps {
 
 export default class NewsView extends React.Component<NewsViewProps> {
 
-    formSubmit = (e: { preventDefault: () => void; }) : any => {
-        e.preventDefault();
-        console.log("formulario enviado");
-    };
-
     render() : React.ReactNode {
 
-        console.log("Estoy en el render NewsView: ", this.props.lastNews);
+        console.log("Estoy en NewsView");
 
         return (
-            <Container maxWidth="md" id="top">
-                <SearchBar/>
-                <NewsViewTable data={this.props.lastNews}/>
-            </Container>
+            <NewsViewTable data={this.props.lastNews}/>
         );
     }
 }
