@@ -1,6 +1,5 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
-import axios from "../../connection/Axios";
 import {
     Avatar,
     Button,
@@ -68,12 +67,12 @@ class ModifyDataView extends React.Component<Props, State> {
         formData.append('pic', this.state.picture);
         formData.append('nombre', "Julian");
 
-        const response = await axios.post('/imagen2', formData);
+        //const response = await axios.post('/imagen2', formData);
 
-        console.log(response.data);
+        //console.log(response.data);
 
         this.setState({
-            picture: response.data
+            picture: "hfljaksd"
         })
     }
 

@@ -1,5 +1,4 @@
 import {SubmissionError} from "redux-form";
-import axios from "../../../connection/Axios";
 
 interface IErrors {
     user: string | undefined,
@@ -106,7 +105,7 @@ export const handleComprobaciones = async (alias: string, email: string): Promis
         email
     };
 
-    let compruebaAliasyEmail = await axios.post("/compruebaAliasyEmail", aliasEmail);
+    //let compruebaAliasyEmail = await axios.post("/compruebaAliasyEmail", aliasEmail);
 
-    return compruebaAliasyEmail.data;
+    return "kfjñasdl";
 }

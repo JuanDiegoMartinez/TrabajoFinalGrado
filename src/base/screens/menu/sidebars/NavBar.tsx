@@ -2,9 +2,6 @@ import React from "react";
 import {Navbar} from 'react-bootstrap';
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {newLogin} from "../../../../modules/login/actions/LoginActions";
-import {UserComplete} from "../../../../models/data/User";
-import axios from "../../../../connection/Axios";
 
 //import logo from "../../../../res/img/logo.svg";
 

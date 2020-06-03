@@ -5,9 +5,6 @@ import {News} from "../../../models/data/News";
 import {newsActionCreator, searchBarActionCreator} from "../actions/NewsActions";
 import SearchBar from "../../../models/templates/SearchBar";
 import Container from "@material-ui/core/Container";
-import { RouteComponentProps } from "react-router-dom";
-import history from "../../../history";
-import axios from "../../../connection/Axios";
 
 interface ReduxState {
     ultimasNoticias: News[]
