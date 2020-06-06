@@ -51,8 +51,6 @@ export const validate = (formValues: any) : IErrors | any =>  {
 
 export const handleButtonValidate = async (formValues: any) => {
 
-    //if nombre de usuario and email no están en la bbdd
-
     //Compprueba que el email coincide
     if (formValues.email !== formValues.email2) {
 
@@ -100,12 +98,16 @@ export const handleButtonValidate = async (formValues: any) => {
 //Comprueba que el alias y el email no estén en la bbdd
 export const handleComprobaciones = async (alias: string, email: string): Promise<any> => {
 
-    let aliasEmail = {
-        alias,
-        email
-    };
 
-    //let compruebaAliasyEmail = await axios.post("/compruebaAliasyEmail", aliasEmail);
+    const response = await fetch('/compruebaAliasyEmail', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({alias, email})
+    });
 
-    return "kfjñasdl";
+    const body = await response.json();
+
+    return body;
 }

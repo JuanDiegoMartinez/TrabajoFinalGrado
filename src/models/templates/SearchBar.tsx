@@ -6,11 +6,13 @@ import Grid from "@material-ui/core/Grid";
 import {InjectedFormProps, reduxForm, WrappedFieldProps, Field} from "redux-form";
 
 interface SearchFormProps {
-    onFormSubmit: (palabra: string) => void
+    onFormSubmit: (palabra: string) => void,
+    palabra: string | undefined
 }
 
 interface FormInputProps extends WrappedFieldProps {
-    name: string
+    name: string,
+    palabra: string
 }
 
 type Props = InjectedFormProps<{}, SearchFormProps> & SearchFormProps;
@@ -26,7 +28,7 @@ class SearchBar extends React.Component<Props> {
 
         return(
             <InputBase
-                placeholder="Search..."
+                placeholder={formProps.palabra === undefined ? "Search..." : formProps.palabra}
                 style={inputB}
                 inputProps={{...formProps.input}}
             />
@@ -42,7 +44,7 @@ class SearchBar extends React.Component<Props> {
                 </Grid>
                 <Grid item xs={12} sm={11}>
                     <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
-                        <Field component={this.renderInput} name="busqueda"/>
+                        <Field component={this.renderInput} name="busqueda" palabra={this.props.palabra}/>
                     </form>
                 </Grid>
             </Grid>

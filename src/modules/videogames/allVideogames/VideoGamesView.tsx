@@ -8,11 +8,12 @@ export default class VideoGamesView extends React.Component<{}, {}> {
 
     componentWillMount(): void {
 
-        console.log("mierdaseca")
+        console.log("mierdaseca");
         /*
-        axios.get("/unicaPeticionApi").then(r => {
-            console.log("hola");
-        })
+        fetch('/unicaPeticionApi', {
+            method: 'GET'
+        }).then(r => {});
+
          */
     }
 

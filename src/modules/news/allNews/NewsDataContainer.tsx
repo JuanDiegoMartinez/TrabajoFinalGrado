@@ -3,16 +3,17 @@ import NewsView from "./NewsView";
 import {connect} from "react-redux";
 import {News} from "../../../models/data/News";
 import {newsActionCreator, searchBarActionCreator} from "../actions/NewsActions";
-import SearchBar from "../../../models/templates/SearchBar";
-import Container from "@material-ui/core/Container";
 
 interface ReduxState {
-    ultimasNoticias: News[]
+    noticias: News[],
+    palabra: string,
+    page: number,
+    rowsPerPage: number
 }
 
 interface ActionProps {
     newsActionCreator: () => News[]
-    searchBarActionCreator: () => News[]
+    searchBarActionCreator: (palabra: string) => News[]
 }
 
 type Props = ReduxState & ActionProps;
@@ -21,38 +22,38 @@ class NewsDataContainer extends React.Component<Props> {
 
     componentWillMount(): void {
         //history.push("/registro", {a: "hola"});
-        //console.log(this.props.history);
-        this.props.newsActionCreator();
-    }
-
-    prueba = () => {
         this.props.newsActionCreator();
     }
 
     onSearchSubmit = (palabra: string): void => {
-        console.log(palabra);
-        this.props.searchBarActionCreator();
-
+        this.props.searchBarActionCreator(palabra);
     }
 
     render() : React.ReactNode {
 
-        //this.prueba();
-
         return (
-            <Container maxWidth="md" id="top">
-                <SearchBar onFormSubmit={this.onSearchSubmit}/>
-                <NewsView lastNews={this.props.ultimasNoticias}/>
-            </Container>
+            <NewsView
+                noticias={this.props.noticias}
+                onFormSubmit={this.onSearchSubmit}
+                palabra={this.props.palabra}
+                page={this.props.page}
+                rowsPerPage={this.props.rowsPerPage}
+            />
         );
     }
 }
 
+// @ts-ignore
 const mapStateToProps = (state: any) : ReduxState => {
-    return {
-        ultimasNoticias: state.NewsReducer.lastNews
+
+    if (state.NewsReducer.objeto !== undefined) {
+        return {
+            noticias: state.NewsReducer.objeto.noticias,
+            palabra: state.NewsReducer.objeto.palabra,
+            page: state.NewsReducer.objeto.page,
+            rowsPerPage: state.NewsReducer.objeto.rowsPerPage
+        }
     }
 }
 
-// @ts-ignore
-export default connect(mapStateToProps, {newsActionCreator, searchBarActionCreator})(NewsDataContainer);
+export default connect(mapStateToProps, {newsActionCreator, searchBarActionCreator})(NewsDataContainer as unknown as React.ComponentType<{}>);

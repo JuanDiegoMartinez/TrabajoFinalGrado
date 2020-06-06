@@ -9,7 +9,6 @@ import Button from "@material-ui/core/Button";
 import {UserRegister} from "../../models/data/User";
 import {handleButtonValidate, validate} from "./validation/Validation"
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
-import history from "../../history";
 
 
 interface UserFormProps {

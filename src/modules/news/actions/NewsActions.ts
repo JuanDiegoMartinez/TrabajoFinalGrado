@@ -1,23 +1,17 @@
 import {Dispatch} from "react";
 import {NEWS_ACTION} from "../../../redux/Types";
 
+//Maneja la petición de las noticias
 export const newsActionCreator = () => async (dispatch: Dispatch<any>) => {
 
-    //Llamar al backend y obtener las últimas noticias
-    //let response = await axios.get('/obtenerNoticias');
-
     const response = await fetch('/obtenerNoticias', {
-        method: 'POST',
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({page: 1}),
-
+        }
     });
-    const body = await response.json();
-    console.log(body);
 
-    console.log(response);
+    const body = await response.json();
 
     dispatch({
         type: NEWS_ACTION,
@@ -25,14 +19,15 @@ export const newsActionCreator = () => async (dispatch: Dispatch<any>) => {
     })
 }
 
-export const searchBarActionCreator = () => async (dispatch: Dispatch<any>) => {
-
-    //Llamar al backend y obtener las últimas noticias
-    //let response = await axios.get("/busquedaNoticias");
-    //console.log(response.data)
+//Maneja la petición de la barra de búsqueda
+export const searchBarActionCreator = (palabra: string) => async (dispatch: Dispatch<any>) => {
 
     const response = await fetch('/busquedaNoticias', {
-        method: 'GET'
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({palabra})
     });
 
     const body = await response.json();

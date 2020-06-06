@@ -5,26 +5,48 @@ import {KeyboardArrowLeft, KeyboardArrowRight} from "@material-ui/icons";
 interface TablePaginationComponentProps {
     numberOfRows: number,
     changeRowsPerPage: (rowsPerPage: number) => void,
-    changePage: (page: number) => void
+    changePage: (page: number) => void,
+    rowsPerPage: number | undefined,
+    page: number | undefined
 }
 
 interface TablePaginationComponentState {
     count: number,
-    page: number,
-    rowsPerPage: number
+    page: any,
+    rowsPerPage: any
 }
 
 type State = TablePaginationComponentState;
-type Props = TablePaginationComponentProps
+type Props = TablePaginationComponentProps;
 
 export default class TablePaginationComponent extends React.Component<Props, State> {
 
     componentWillMount(): void {
 
+        const {page, rowsPerPage} = this.props;
+
+        let filaPorPagina = rowsPerPage === undefined ? 5 : rowsPerPage;
+        let pagina = page === undefined ? 0 : page;
+
         this.setState({
             count: this.props.numberOfRows,
-            page: 0,
-            rowsPerPage: 5,
+            page: pagina,
+            rowsPerPage: filaPorPagina,
+        });
+    }
+
+    //Se ejecuta cuando se reciben props
+    componentWillReceiveProps(props: Readonly<TablePaginationComponentProps>): void {
+
+        const {page, rowsPerPage, numberOfRows} = props;
+
+        let filaPorPagina = rowsPerPage === undefined ? 5 : rowsPerPage;
+        let pagina = page === undefined ? 0 : page;
+
+        this.setState({
+            count: numberOfRows,
+            page: pagina,
+            rowsPerPage: filaPorPagina,
         });
     }
 

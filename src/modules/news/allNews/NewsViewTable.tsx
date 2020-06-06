@@ -6,20 +6,42 @@ import TablePaginationComponent from "../../../models/templates/TablePaginationC
 import {Link as RouterLink} from "react-router-dom";
 
 interface NewsViewTableProps {
-    data: News[]
+    data: News[],
+    page: number | undefined,
+    rowsPerPage: number | undefined
 }
 
-interface State {
+interface NewsViewTableState {
     rowsPerPage: number,
     page: number
 }
 
-export default class NewsViewTable extends TableComponent<NewsViewTableProps, State> {
+export default class NewsViewTable extends TableComponent<NewsViewTableProps, NewsViewTableState> {
 
     componentWillMount(): void {
+
+        const {page, rowsPerPage} = this.props;
+
+        let filaPorPagina = rowsPerPage === undefined ? 5 : rowsPerPage;
+        let pagina = page === undefined ? 0 : page;
+
         this.setState({
-            rowsPerPage: 5,
-            page: 0
+            rowsPerPage: filaPorPagina,
+            page: pagina
+        })
+    }
+
+    //Se ejecuta cuando se reciben props
+    componentWillReceiveProps(props: Readonly<NewsViewTableProps>): void {
+
+        const {page, rowsPerPage} = props;
+
+        let filaPorPagina = rowsPerPage === undefined ? 5 : rowsPerPage;
+        let pagina = page === undefined ? 0 : page;
+
+        this.setState({
+            rowsPerPage: filaPorPagina,
+            page: pagina
         })
     }
 
@@ -72,12 +94,28 @@ export default class NewsViewTable extends TableComponent<NewsViewTableProps, St
     }
 
     renderPagination = (): React.ReactNode => {
+
         return (
-            <TablePaginationComponent numberOfRows={this.props.data.length} changeRowsPerPage={this.onChangeRowsPerPage} changePage={this.onChangePage}/>
+            <TablePaginationComponent
+                numberOfRows={this.props.data.length}
+                changeRowsPerPage={this.onChangeRowsPerPage}
+                changePage={this.onChangePage}
+                rowsPerPage={this.state.rowsPerPage}
+                page={this.state.page}
+            />
         );
     };
 
     onChangeRowsPerPage = (rowsPerPage: number): void => {
+
+        fetch('/cookieRowsPerPage', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({rowsPerPage, page: 0}),
+        }).then(r => {});
+
         this.volverArriba();
 
         this.setState({
@@ -87,6 +125,15 @@ export default class NewsViewTable extends TableComponent<NewsViewTableProps, St
     };
 
     onChangePage = (page: number): void => {
+
+        fetch('/cookiePage', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({page}),
+        }).then(r => {});
+
         this.volverArriba();
 
         this.setState({

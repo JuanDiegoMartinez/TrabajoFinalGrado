@@ -18,7 +18,6 @@ type Props = ActionProps & ReduxState;
 class RegisterDataContainer extends React.Component<Props, {}> {
 
     onRegisterSubmit = (values: UserRegister) : void => {
-        //Insertar en bbdd e ir a login o modify data
         this.props.newUser(values);
     }
 

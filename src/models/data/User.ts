@@ -6,7 +6,8 @@ export interface UserComplete {
     password: string,
     nacimiento: string,
     rutaImagen: string,
-    favoritos: string[]
+    juegosFavoritos: string[],
+    websFavoritas: string[]
 }
 
 //Los datos con los cuales se registra el usuario

@@ -4,7 +4,7 @@ export default (state: any = {}, action: Action) : {} => {
 
     switch (action.type) {
         case NEWS_ACTION:
-            return {...state, lastNews: action.payload};
+            return {...state, objeto: action.payload};
         default:
             return state;
     }
