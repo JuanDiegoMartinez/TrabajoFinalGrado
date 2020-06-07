@@ -4,12 +4,20 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import {Link, Modal} from "@material-ui/core";
 
 interface PropsModalComponent {
-    open: boolean
+    open: boolean,
+    parrafo: string,
+    icono: any,
+    recuperarEmail: boolean
 }
 
 type Props = PropsModalComponent;
 
 export default class ModalComponent extends React.Component<Props, {}> {
+
+    onFormSubmit = (e: any) => {
+        e.preventDefault();
+        //falta fetch
+    }
 
     render(): React.ReactNode {
         return (
@@ -20,9 +28,18 @@ export default class ModalComponent extends React.Component<Props, {}> {
                 disableEnforceFocus
             >
                 <Alert className="alerta" variant="filled" severity="success" icon={false}>
-                    <CheckCircleOutlineIcon className="icono"/>
-                    <p>Cuenta creada satisfactoriamente, haz click para ir a login</p>
-                    <Link className="link" href="/login"> Ir a login </Link>
+                    {this.props.icono}
+                    <p>{this.props.parrafo}</p>
+                    {this.props.recuperarEmail ?
+                        <div>
+                            <form onSubmit={this.onFormSubmit}>
+                                <input type="text" className="input" />
+                                <br/>
+                                <button className="boton" >Enviar</button>
+                            </form>
+                        </div>
+                            :
+                        <Link className="link" href="/login"> Ir a login </Link>}
                 </Alert>
             </Modal>
         );

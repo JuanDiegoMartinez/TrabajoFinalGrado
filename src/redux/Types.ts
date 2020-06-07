@@ -9,3 +9,4 @@ export interface Action {
 export const NEW_ACCOUNT = 'NEW_ACCOUNT';
 export const NEW_LOGIN = 'NEW_LOGIN';
 export const NEWS_ACTION = 'NEWS_ACTION';
+export const VIDEOGAMES_ACTION = 'VIDEOGAMES_ACTION';

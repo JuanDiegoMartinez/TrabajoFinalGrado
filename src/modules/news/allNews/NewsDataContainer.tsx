@@ -21,7 +21,6 @@ type Props = ReduxState & ActionProps;
 class NewsDataContainer extends React.Component<Props> {
 
     componentWillMount(): void {
-        //history.push("/registro", {a: "hola"});
         this.props.newsActionCreator();
     }
 

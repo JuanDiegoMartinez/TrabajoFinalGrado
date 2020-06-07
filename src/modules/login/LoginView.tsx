@@ -5,12 +5,12 @@ import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import PersonIcon from '@material-ui/icons/Person';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import {Field, InjectedFormProps, reduxForm, WrappedFieldProps} from "redux-form";
 import {Login} from "../../models/data/Login";
-import {handleButtonValidate} from "./validation/Validation";
+import {handleButtonValidate, validate} from "./validation/Validation";
 
 interface LoginFormProps {
     onFormSubmit: (values: Login) => void
@@ -53,13 +53,17 @@ class LoginView extends React.Component<Props> {
         this.props.onFormSubmit(formValues);
     }
 
+    recuperarPassword = () => {
+        console.log("hola");
+    }
+
     render() : React.ReactNode {
 
         return(
             <Container maxWidth="xs" className="container">
                 <div className="div">
                     <Avatar className="avatar">
-                        <LockOutlinedIcon className="icon"/>
+                        <PersonIcon className="icon"/>
                     </Avatar>
                     <Typography component="h1" className="titulo">
                         Iniciar Sesión
@@ -88,12 +92,12 @@ class LoginView extends React.Component<Props> {
                         </Grid>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="#" variant="body2">
+                                <Link style={{cursor: 'pointer'}}  onClick={this.recuperarPassword}>
                                     Olvidaste la contraseña? (posible gmail)
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link style={{cursor: 'pointer'}}>
                                     No tienes cuenta? Create una!
                                 </Link>
                             </Grid>
@@ -101,7 +105,11 @@ class LoginView extends React.Component<Props> {
                     </form>
                 </div>
                 <Box mt={8}>
-                    referencias de las apis
+                    <p>
+                        NewsApi.org
+                        <br/>
+                        RAWG.io
+                    </p>
                 </Box>
             </Container>
         );
@@ -110,5 +118,6 @@ class LoginView extends React.Component<Props> {
 
 export default reduxForm<Login, LoginFormProps>({
     form: 'loginForm',
-    enableReinitialize: true
+    enableReinitialize: true,
+    validate
 })(LoginView);

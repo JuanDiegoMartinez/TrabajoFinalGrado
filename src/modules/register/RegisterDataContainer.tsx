@@ -4,6 +4,7 @@ import {UserRegister} from "../../models/data/User";
 import {newUser} from "./actions/RegisterActions";
 import {connect} from "react-redux";
 import ModalComponent from "../../models/templates/ModalComponent";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
 interface ReduxState {
     nuevaCuentaCreada: boolean
@@ -25,7 +26,12 @@ class RegisterDataContainer extends React.Component<Props, {}> {
 
         return (
             <div>
-                <ModalComponent open={this.props.nuevaCuentaCreada}/>
+                <ModalComponent
+                    open={this.props.nuevaCuentaCreada}
+                    parrafo={"Cuenta creada satisfactoriamente, haz click para ir a login"}
+                    icono={<CheckCircleOutlineIcon className="icono"/>}
+                    recuperarEmail={false}
+                />
                 <RegisterView onFormSubmit={this.onRegisterSubmit}/>
             </div>
         );

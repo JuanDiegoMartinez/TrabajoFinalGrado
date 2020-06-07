@@ -3,9 +3,11 @@ import LoginView from "./LoginView";
 import {Login} from "../../models/data/Login";
 import {connect} from "react-redux";
 import {newLogin} from "./actions/LoginActions";
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import ModalComponent from "../../models/templates/ModalComponent";
 
 interface ReduxState {
-    login: any
+    user: any
 }
 
 interface Actions {
@@ -17,21 +19,29 @@ type Props = ReduxState & Actions;
 class LoginDataContainer extends React.Component<Props, {}> {
 
     onLoginSubmit = (values: Login) : void => {
-        console.log("Estoy en LoginDataContainer: ", values);
         this.props.newLogin(values);
     }
 
+    //Falta
     render(): React.ReactNode {
 
         return (
-            <LoginView onFormSubmit={this.onLoginSubmit}/>
+            <div>
+                <ModalComponent
+                    open={false}
+                    parrafo={"Para recuperar tu contraseña escribe tu email"}
+                    icono={<MailOutlineIcon className="icono"/>}
+                    recuperarEmail={true}
+                />
+                <LoginView onFormSubmit={this.onLoginSubmit}/>
+            </div>
         );
     }
 }
 
 const mapStateToProps = (state: any) : ReduxState => {
     return {
-        login: state.LoginReducer.login
+        user: state.LoginReducer.user
     }
 }
 

@@ -25,7 +25,7 @@ export default class TablePaginationComponent extends React.Component<Props, Sta
 
         const {page, rowsPerPage} = this.props;
 
-        let filaPorPagina = rowsPerPage === undefined ? 5 : rowsPerPage;
+        let filaPorPagina = rowsPerPage === undefined ? 10 : rowsPerPage;
         let pagina = page === undefined ? 0 : page;
 
         this.setState({
@@ -40,7 +40,7 @@ export default class TablePaginationComponent extends React.Component<Props, Sta
 
         const {page, rowsPerPage, numberOfRows} = props;
 
-        let filaPorPagina = rowsPerPage === undefined ? 5 : rowsPerPage;
+        let filaPorPagina = rowsPerPage === undefined ? 10 : rowsPerPage;
         let pagina = page === undefined ? 0 : page;
 
         this.setState({

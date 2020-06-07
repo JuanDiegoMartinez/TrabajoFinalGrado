@@ -5,28 +5,35 @@ import {connect} from "react-redux";
 
 //import logo from "../../../../res/img/logo.svg";
 
-interface ReduxState {
-    login: any
-}
+
 interface IState {
     usuario: any,
     hayUser: boolean,
 }
-type IProps = ReduxState;
 
-class NavBar extends React.Component<IProps, IState> {
+export default class NavBar extends React.Component<{}, IState> {
 
     componentWillMount(): void {
 
-        /*
-        let response = undefined;
+        let user = undefined;
 
-        axios.get("/session").then((resp) => {
-            response = resp.data;
-            console.log(response);
-        });
+        fetch('/session', {
+            method: 'GET'
+        })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+                user = data;
 
-        if (response === undefined) {
+                this.setState({
+                    usuario: user,
+                    hayUser: true
+                })
+            });
+
+        console.log(user);
+
+        if (user === undefined) {
             console.log("no hay response");
 
             this.setState({
@@ -37,16 +44,14 @@ class NavBar extends React.Component<IProps, IState> {
 
         else {
             this.setState({
-                usuario: response,
+                usuario: user,
                 hayUser: true
             })
         }
-
-         */
     }
 
     render() : React.ReactNode {
-        /*
+
         let nombre;
 
         if (!this.state.hayUser) {
@@ -54,26 +59,18 @@ class NavBar extends React.Component<IProps, IState> {
         }
 
         else {
-            nombre = this.state.usuario.user;
+            nombre = this.state.usuario;
         }
 
-         */
+
 
         return (
             <Navbar className="navbar">
                 <Navbar.Brand>
                     <Link to="/"> Volver inicio </Link>
-                    <p>fdgsfdgdfg</p>
+                    <p>{nombre}</p>
                 </Navbar.Brand>
             </Navbar>
         );
     }
 }
-
-const mapStateToProps = (state: any) : ReduxState => {
-    return {
-        login: state.LoginReducer.login
-    }
-}
-
-export default connect(mapStateToProps, {})(NavBar);
