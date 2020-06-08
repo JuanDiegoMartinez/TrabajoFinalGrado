@@ -1,22 +1,25 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
-import SimpleTabs from "../tabs/Pestanas";
-import {Backdrop, CircularProgress, Grid} from "@material-ui/core";
+import Pestanas from "../tabs/Pestanas";
+import {Backdrop, CircularProgress, Grid, Link} from "@material-ui/core";
 import {gridContainer, gridItem} from "../../../res/otrosCss/VideogamesList";
 import {PartialVideogame} from "../../../models/data/Videogame";
 import SearchBar from "../../../models/templates/SearchBar";
+import {Link as RouterLink} from "react-router-dom";
 
 interface VideoGamesViewProps {
     videojuegos: PartialVideogame[]
     palabra: string,
-    onFormSubmit: (palabra: string) => void
+    onFormSubmit: (palabra: string) => void,
+    pestanaActual: number,
+    seleccionado: string,
+    onFilterSubmit: (pestanaActual: number | undefined, seleccionado: string | undefined) => void
 }
 
 export default class VideoGamesView extends React.Component<VideoGamesViewProps, {}> {
 
     componentWillMount(): void {
 
-        //console.log("mierdaseca");
         /*
         fetch('/unicaPeticionApi', {
             method: 'GET'
@@ -34,10 +37,12 @@ export default class VideoGamesView extends React.Component<VideoGamesViewProps,
                         <img src={videojuego.urlImage} alt="no hay imagen" className="image"/>
                     </div>
                     <div className="divTexto">
-                        <p className="nombre">{videojuego.name}</p>
+                        <Link component={RouterLink} to={`/videojuegos/${videojuego.slug}`}>
+                            <p className="nombre">{videojuego.name}</p>
+                        </Link>
                         <p>Lanzamiento: {videojuego.lanzamiento}</p>
                         <p>{videojuego.platforms.map((plataforma: any) => {
-                            return(plataforma + ", ")
+                            return(videojuego.platforms.indexOf(plataforma) === videojuego.platforms.length - 1 ? plataforma : plataforma + ", ")
                         })}</p>
                     </div>
                 </Grid>
@@ -58,9 +63,9 @@ export default class VideoGamesView extends React.Component<VideoGamesViewProps,
         return (
             <Container maxWidth="md">
                 <SearchBar onFormSubmit={this.props.onFormSubmit} palabra={this.props.palabra}/>
-                <SimpleTabs/>
+                <Pestanas pestanaActual={this.props.pestanaActual} seleccionado={this.props.seleccionado} onFilterSubmit={this.props.onFilterSubmit}/>
                 {this.props.videojuegos !== undefined && this.props.videojuegos.length === 0 ?
-                    <h1 style={{textAlign: 'center', margin: '20px'}}> No se han encontrado videojuegos</h1>
+                    <h1> No se han encontrado videojuegos</h1>
                     : <div className="div">
                         <Grid container spacing={3} style={gridContainer}>
                             {this.renderVideogames()}

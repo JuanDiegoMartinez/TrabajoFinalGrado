@@ -20,14 +20,14 @@ export const videogamesActionCreator = () => async (dispatch: Dispatch<any>) => 
 }
 
 //Maneja la petición de la barra de búsqueda
-export const searchBarJuegosActionCreator = (palabra: string) => async (dispatch: Dispatch<any>) => {
+export const busquedaActionCreator = (palabra: string | undefined, pestanaActual: number | undefined, seleccionado: string | undefined) => async (dispatch: Dispatch<any>) => {
 
     const response = await fetch('/busquedaVideojuegos', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({palabra})
+        body: JSON.stringify({palabra, pestanaActual, seleccionado})
     });
 
     const body = await response.json();

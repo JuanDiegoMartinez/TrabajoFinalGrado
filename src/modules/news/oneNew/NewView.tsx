@@ -30,9 +30,8 @@ export default class NewView extends React.Component<NewViewProps, {}> {
                     </div>
                     <Grid container spacing={3}>
                         <Grid className="grid" item xs={12}>
-                            <img className="imagen" src={urlImage} />
-                            <aside className="texto" id="textoNoticia">
-                            </aside>
+                            <img alt="Imagen no disponible" className="imagen" src={urlImage} />
+                            <aside className="texto" id="textoNoticia"/>
                             <p><strong>Enlace de la noticia: </strong></p>
                             <a href={urlNews} target="_blank">{urlNews}</a>
                         </Grid>

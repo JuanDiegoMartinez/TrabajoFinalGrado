@@ -22,7 +22,7 @@ export default class NavBar extends React.Component<{}, IState> {
         })
             .then(response => response.text())
             .then(data => {
-                console.log(data);
+                //console.log(data);
                 user = data;
 
                 this.setState({
@@ -31,10 +31,10 @@ export default class NavBar extends React.Component<{}, IState> {
                 })
             });
 
-        console.log(user);
+        //console.log(user);
 
         if (user === undefined) {
-            console.log("no hay response");
+            //console.log("no hay response");
 
             this.setState({
                 usuario: "No se ha iniciado sesión",

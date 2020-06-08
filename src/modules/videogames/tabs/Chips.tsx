@@ -2,81 +2,56 @@ import React from 'react';
 import Chip from '@material-ui/core/Chip';
 
 interface State {
-    todos: ChipData[],
-    seleccionados: string[]
+    datos: ChipData[]
 }
 
-interface ChipData {
-    key: number,
+export interface ChipData {
     nombre: string,
-    add: boolean,
+    seleccionado: boolean,
     color: string
 }
 
-export default class Chips extends React.Component<{},State> {
+interface ChipsProps {
+    datos: string[]
+    seleccionado: string,
+    onFilterSubmit: (pestanaActual: number | undefined, seleccionado: string | undefined) => void,
+    pestana: number
+}
+
+export default class Chips extends React.Component<ChipsProps,State> {
 
     constructor(props: any) {
         super(props);
 
+        let lista : ChipData[] = [];
+
+        this.props.datos.map((cadena: string) => {
+
+            if (cadena === this.props.seleccionado) {
+                lista.push({
+                    nombre: cadena,
+                    seleccionado: true,
+                    color: 'rgba(30,114,198, 0.8)'
+                })
+            }
+
+            else {
+                lista.push({
+                    nombre: cadena,
+                    seleccionado: false,
+                    color: ''
+                })
+            }
+        })
+
         this.state = {
-            todos: [
-                {
-                    key: 1,
-                    nombre: "Reactaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                    add: false,
-                    color: ''
-                },
-                {
-                    key: 2,
-                    nombre: "Jolinaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                    add: false,
-                    color: ''
-                },
-                {
-                    key: 3,
-                    nombre: "Jolinaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdfsdfsdfsdfsdfsdfsdfsd",
-                    add: false,
-                    color: ''
-                },
-            ],
-            seleccionados: []
+            datos: lista
         }
     }
 
     handleDelete = (chip: ChipData) => () => {
 
-        const array = this.state.todos;
-
-        let indice = array.indexOf(chip);
-
-        //Eliminar el elemento de la lista
-        array.splice(indice, 1);
-
-        //Modificar el elemento
-        let elem: ChipData = {
-            key: chip.key,
-            nombre: chip.nombre,
-            add: false,
-            color: ''
-        };
-
-        //Volver a insertar el elemento en la mismo posición
-        array.splice(indice, 0, elem);
-
-        //Eliminar de la array de seleccionados
-        const seleccionadosArray = this.state.seleccionados;
-
-        seleccionadosArray.splice(indice, 1);
-
-        this.setState({
-            todos: array,
-            seleccionados: seleccionadosArray
-        });
-    };
-
-    handleClick = (chip: ChipData) => () => {
-
-        const array = this.state.todos;
+        const array = this.state.datos;
 
         const indice = array.indexOf(chip);
 
@@ -85,38 +60,80 @@ export default class Chips extends React.Component<{},State> {
 
         //Modificar el elemento
         let elem: ChipData = {
-            key: chip.key,
             nombre: chip.nombre,
-            add: true,
-            color: 'green'
+            seleccionado: false,
+            color: ''
         };
 
         //Volver a insertar el elemento en la mismo posición
         array.splice(indice, 0, elem);
 
-        if (this.state.seleccionados.indexOf(chip.nombre) === -1) {
+        this.setState({
+            datos: array
+        });
 
-            this.setState({
-                seleccionados: [...this.state.seleccionados, chip.nombre]
-            });
-        }
+        this.props.onFilterSubmit(this.props.pestana, undefined)
+    }
+
+    handleClick = (chip: ChipData) => () => {
+
+        const array = this.state.datos;
+
+        array.map((objeto: ChipData) => {
+
+            //El objeto que estaba clicado lo desclicas
+            if (objeto.seleccionado && objeto.nombre !== chip.nombre) {
+
+                const indice = array.indexOf(objeto);
+
+                //Eliminar el elemento de la lista
+                array.splice(indice, 1);
+
+                //Modificar el elemento
+                let elem: ChipData = {
+                    nombre: objeto.nombre,
+                    seleccionado: false,
+                    color: ''
+                };
+
+                //Volver a insertar el elemento en la mismo posición
+                array.splice(indice, 0, elem);
+            }
+        })
+
+        const indice = array.indexOf(chip);
+
+        //Eliminar el elemento de la lista
+        array.splice(indice, 1);
+
+        //Modificar el elemento
+        let elem: ChipData = {
+            nombre: chip.nombre,
+            seleccionado: true,
+            color: 'rgba(30,114,198, 0.8)'
+        };
+
+        //Volver a insertar el elemento en la mismo posición
+        array.splice(indice, 0, elem);
 
         this.setState({
-            todos: array
+            datos: array
         });
-    };
+
+        this.props.onFilterSubmit(this.props.pestana, chip.nombre)
+    }
 
     render(): React.ReactNode {
     return (
         <div style={{display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
 
-            {this.state.todos.map((object: ChipData): any => {
+            {this.state.datos.map((object: any): any => {
 
                 return(
                     <Chip
                         label={object.nombre}
                         onClick={this.handleClick(object)}
-                        onDelete={!object.add ? undefined : this.handleDelete(object)}
+                        onDelete={!object.seleccionado ? undefined : this.handleDelete(object)}
                         style={{background: object.color, margin: '2px'}}
                     />
                 );

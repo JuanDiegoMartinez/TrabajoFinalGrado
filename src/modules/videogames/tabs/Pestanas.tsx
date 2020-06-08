@@ -5,13 +5,84 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Grouped from "./Autocomplete";
+import Grouped from "./Grouped";
 import Chips from "./Chips";
+import {desarrolladores, generos, plataformas} from "../../../models/data/Datos";
 
 interface TabPanelProps {
     children?: React.ReactNode;
     index: any;
     value: any;
+}
+
+interface SimpleTabsProps {
+    pestanaActual: number,
+    seleccionado: string,
+    onFilterSubmit: (pestanaActual: number | undefined, seleccionado: string | undefined) => void
+}
+
+interface SimpleTabsState {
+    pestanaActual: number,
+    seleccionado: string
+}
+
+export default class Pestanas extends React.Component<SimpleTabsProps, SimpleTabsState> {
+
+    componentWillMount(): void {
+
+        const {pestanaActual} = this.props;
+
+        let actual = pestanaActual === undefined ? 0 : pestanaActual;
+
+        this.setState({
+            pestanaActual: actual,
+            seleccionado: this.props.seleccionado
+        })
+    }
+
+    //Se ejecuta cuando se reciben props
+    componentWillReceiveProps(props: Readonly<SimpleTabsProps>): void {
+
+        const {pestanaActual} = props;
+
+        let actual = pestanaActual === undefined ? 0 : pestanaActual;
+
+        this.setState({
+            pestanaActual: actual,
+            seleccionado: this.props.seleccionado
+        })
+    }
+
+    handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+        this.setState({
+            pestanaActual: newValue,
+            seleccionado: this.props.seleccionado
+        })
+    };
+
+    render(): React.ReactNode {
+
+        return (
+            <div style={{marginBottom: '40px', backgroundColor: 'white'}}>
+                <AppBar position="static">
+                    <Tabs value={this.state.pestanaActual} onChange={this.handleChange} aria-label="simple tabs example" centered>
+                        <Tab label="Genero"/>
+                        <Tab label="Plataforma"/>
+                        <Tab label="Compañia"/>
+                    </Tabs>
+                </AppBar>
+                <TabPanel value={this.state.pestanaActual} index={0}>
+                    <Chips seleccionado={this.props.seleccionado} onFilterSubmit={this.props.onFilterSubmit} datos={generos} pestana={0}/>
+                </TabPanel>
+                <TabPanel value={this.state.pestanaActual} index={1}>
+                    <Chips seleccionado={this.props.seleccionado} onFilterSubmit={this.props.onFilterSubmit} datos={plataformas} pestana={1}/>
+                </TabPanel>
+                <TabPanel value={this.state.pestanaActual} index={2}>
+                    <Grouped seleccionado={this.props.seleccionado} onFilterSubmit={this.props.onFilterSubmit} datos={desarrolladores} pestana={2}/>
+                </TabPanel>
+            </div>
+        );
+    }
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -30,50 +101,6 @@ function TabPanel(props: TabPanelProps) {
                     <Typography>{children}</Typography>
                 </Box>
             )}
-        </div>
-    );
-}
-
-function a11yProps(index: any) {
-    return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    };
-}
-
-const useStyles = makeStyles((theme: Theme) => ({
-    root: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
-    },
-}));
-
-export default function SimpleTabs() {
-    const classes = useStyles();
-    const [value, setValue] = React.useState(0);
-
-    const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        setValue(newValue);
-    };
-
-    return (
-        <div className={classes.root} style={{marginBottom: '40px'}}>
-            <AppBar position="static">
-                <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" centered>
-                    <Tab label="Genero" {...a11yProps(0)} />
-                    <Tab label="Plataforma" {...a11yProps(1)} />
-                    <Tab label="Compañia" {...a11yProps(2)} />
-                </Tabs>
-            </AppBar>
-            <TabPanel value={value} index={0}>
-                <Chips/>
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                <Chips/>
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                <Grouped/>
-            </TabPanel>
         </div>
     );
 }
