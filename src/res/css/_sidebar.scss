@@ -1,0 +1,46 @@
+.sidebar {
+  position: fixed;
+  width: 250px;
+  height: 100%;
+  margin-top: 72px;
+  background: rgba(36,119,186,0.85);
+  overflow-y: scroll;
+
+  li {
+    height: 71px;
+    cursor: pointer;
+
+    /*Cuando el MenuItem está activo*/
+    &.active {
+      background-color: rgba(blue, .25);
+      font-weight: bold;
+    }
+
+    //Para los links
+    .link {
+      color: white;
+
+      &:hover {
+        background-color: rgba(blue, .15);
+      }
+
+      //Para la imagen
+      .zelda {
+        display: flex;
+        align-items: center;
+
+        .divIcono {
+          margin-top: 6px;
+          margin-left: 7px;
+
+          .icono {
+            font-size: 40px;
+          }
+        }
+        .nombre {
+          margin-left: 15px;
+        }
+      }
+    }
+  }
+}

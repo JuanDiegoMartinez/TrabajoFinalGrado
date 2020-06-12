@@ -1,7 +1,7 @@
 import React from "react";
 import Sidebar from "react-sidebar";
-import ComponentSidebar from "../menu/sidebars/SideBar";
-import NavBar from "./sidebars/NavBar";
+import ComponentSidebar from "./bars/sidebar/SideBar";
+import NavBar from "./bars/navbar/NavBar";
 
 interface State {
     sidebarOpen: boolean
@@ -29,15 +29,7 @@ export default class MenuWrapper extends React.Component<Props, State> {
 
                 <NavBar />
 
-                <Sidebar
-                    sidebar={<ComponentSidebar />}
-                    open={this.state.sidebarOpen}
-                    onSetOpen={this.onSetSidebarOpen}
-                    docked={true}
-                    shadow={true}
-                    styles={{sidebar: {position: 'fixed', background: "rgba(36,119,186,0.85)", width: "250px", marginTop: "72px"} }}
-                >
-                </Sidebar>
+                <ComponentSidebar />
 
                 <main className="main">
                     <div className="maindiv">

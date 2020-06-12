@@ -38,7 +38,8 @@
     "redux-form": "^8.3.5",
     "redux-thunk": "^2.3.0",
     "typescript": "^3.7.5",
-    "react-pose": "3.3.0"
+    "react-pose": "3.3.0",
+    "classnames": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

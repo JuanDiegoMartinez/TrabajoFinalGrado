@@ -14,7 +14,6 @@ export const newUser = (formValues: UserRegister) => async (dispatch: Dispatch<a
     });
 
     const body = await response.json();
-    console.log("Soy el body: ", body);
 
     dispatch({
         type: NEW_ACCOUNT,

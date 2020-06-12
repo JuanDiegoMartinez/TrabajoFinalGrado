@@ -7,7 +7,7 @@ interface MenuItemProps {
     route: string,
     active: boolean,
     title: string,
-    image?: string,
+    icon: any,
     className: string
 }
 
@@ -17,10 +17,10 @@ export default class MenuItem extends React.Component<Props> {
 
     private renderLink() {
         return(
-            <Link className="link"  to={this.props.route}>
-                <div>
-                    <img src={this.props.image} alt="Inicio"/>
-                    {this.props.title}
+            <Link className="link" to={this.props.route}>
+                <div className="zelda">
+                    <div className="divIcono">{this.props.icon}</div>
+                    <div className="nombre">{this.props.title}</div>
                 </div>
             </Link>
         );

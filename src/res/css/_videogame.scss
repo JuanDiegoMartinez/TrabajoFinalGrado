@@ -43,3 +43,25 @@
   transform: translateZ(0);
 }
 
+//Elimina la raya del comentario
+.comentario {
+  width: 100%;
+
+  div {
+    border-radius: 4px;
+    padding-top: 35px;
+
+    &:hover::before {
+      border: 0;
+    }
+
+    &::before {
+      border: 0;
+    }
+
+    &::after {
+      border: 0;
+    }
+  }
+}
+

@@ -22,5 +22,5 @@ export const newLogin = (formValues: Login) => async (dispatch: Dispatch<any>) =
         payload: body
     })
 
-    history.push("/");
+    history.goBack();
 }

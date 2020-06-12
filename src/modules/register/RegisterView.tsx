@@ -10,7 +10,6 @@ import {UserRegister} from "../../models/data/User";
 import {handleButtonValidate, validate} from "./validation/Validation"
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 
-
 interface UserFormProps {
     onFormSubmit: (values: UserRegister) => void
 }

@@ -8,7 +8,7 @@ import {
     FormControlLabel,
     FormGroup,
     FormHelperText,
-    FormLabel
+    FormLabel, Icon
 } from "@material-ui/core";
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Typography from "@material-ui/core/Typography";
@@ -16,20 +16,27 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import {Field, InjectedFormProps, reduxForm, WrappedFieldProps} from "redux-form";
 import {validate} from "../register/validation/Validation";
-import {UserRegister} from "../../models/data/User";
+import {UserComplete, UserRegister} from "../../models/data/User";
+import {Valoracion} from "../../models/data/Valoracion";
 
+interface ModifyDataProps {
+}
 
-interface UserFormProps {
-    onFormSubmit: (values: UserRegister) => void
+interface ModifyDataFormProps {
+    initialValues: UserComplete
+    onFormSubmit: (values: UserRegister) => void,
+    comentarios: Valoracion[]
 }
 
 interface FormInputProps extends WrappedFieldProps {
     name: string,
     label: string,
-    type: string
+    type: string,
+    disabled: boolean,
+    comment: string
 }
 
-type Props = InjectedFormProps<UserRegister, UserFormProps> & UserFormProps;
+type Props = InjectedFormProps<UserRegister, ModifyDataFormProps> & ModifyDataFormProps & ModifyDataProps;
 
 interface State {
     picture: any
@@ -76,6 +83,38 @@ class ModifyDataView extends React.Component<Props, State> {
         })
     }
 
+    renderInputComentarios = (formProps : FormInputProps) : React.ReactNode => {
+
+        console.log("Comentarios");
+        console.log("formProps.input.value: ", formProps.input.value);
+        console.log("formProps.comment: ", formProps.comment)
+
+
+        if (formProps.input.value === "") {
+            formProps.input.value = formProps.comment;
+        }
+
+        const fallo = formProps.meta.error && formProps.meta.touched ? true : false;
+
+        return(
+            <TextField
+                error={fallo}
+                helperText={fallo ? formProps.meta.error : ''}
+                label={formProps.label}
+                type={formProps.type}
+                inputProps={{...formProps.input}}
+                //placeholder={formProps.comment}
+                multiline
+                rows={4}
+                variant="filled"
+                className="comentario"
+                InputLabelProps={{
+                    shrink: true,
+                }}
+            />
+        )
+    }
+
     //formProps contiene las funciones y datos
     renderInput = (formProps : FormInputProps) : React.ReactNode => {
 
@@ -84,6 +123,7 @@ class ModifyDataView extends React.Component<Props, State> {
         if (formProps.type !== "date") {
             return (
                 <TextField
+                    disabled={formProps.disabled}
                     error={fallo}
                     helperText={fallo ? formProps.meta.error : ''}
                     autoComplete="off"
@@ -118,6 +158,22 @@ class ModifyDataView extends React.Component<Props, State> {
 
     onSubmit = (formValues: any) : void => {
         console.log("hola");
+        console.log(formValues)
+    }
+
+    renderizarComentarios = () => {
+
+        if (this.props.comentarios !== undefined) {
+            return this.props.comentarios.map((comentario: Valoracion) => {
+                return (
+                    <div>
+                        <p>Comentario del juego: {comentario.slug}</p>
+                        <Field name={comentario.slug} component={this.renderInputComentarios} label="Comentario" type="text" comment={comentario.comment} />
+                    </div>
+                )
+            })
+        }
+        return <div>No has realizado ningún comentario</div>
     }
 
     render(): React.ReactNode {
@@ -139,7 +195,7 @@ class ModifyDataView extends React.Component<Props, State> {
                     <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="form">
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={6}>
-                                <Field name="user" component={this.renderInput} label="Nombre de usuario" type="text"/>
+                                <Field name="user" component={this.renderInput} label="Nombre de usuario" type="text" disabled={true}/>
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <Field name="nombre" component={this.renderInput} label="Nombre y apellidos" type="text"/>
@@ -156,54 +212,18 @@ class ModifyDataView extends React.Component<Props, State> {
                             <Grid item xs={12} sm={6}>
                                 <Field name="password2" component={this.renderInput} label="Confirmar contraseña" type="password"/>
                             </Grid>
-                            <Grid container spacing={3}>
-                                <Grid item xs={12}>
-                                    <FormControl component="fieldset" >
-                                        <FormLabel component="legend"> Selecciona tus juegos favoritos </FormLabel>
-                                        <FormGroup style={{display: 'flex', flexDirection: 'row'}}>
-                                            <Grid item xs={3}>
-                                            <FormControlLabel
-                                                control={<Checkbox checked={false} name="gilad" />}
-                                                label="League of Legends"
-                                            />
-                                            <FormControlLabel
-                                                control={<Checkbox checked={false} name="jason" />}
-                                                label="Hearthstone"
-                                            />
-                                            </Grid>
-                                            <Grid item xs={3}>
-                                            <FormControlLabel
-                                                control={<Checkbox checked={false} name="antoine" />}
-                                                label="Antoine Llorca"
-                                            />
-                                            <FormControlLabel
-                                                control={<Checkbox checked={false} name="antoine" />}
-                                                label="Antoine Llorca"
-                                            />
-                                            </Grid>
-                                            <Grid item xs={3}>
-                                            <FormControlLabel
-                                                control={<Checkbox checked={false} name="antoine" />}
-                                                label="Antoine Llorca"
-                                            />
-                                            <FormControlLabel
-                                                control={<Checkbox checked={false} name="antoine" />}
-                                                label="Antoine Llorca"
-                                            />
-                                            </Grid>
-                                            <Grid item xs={3}>
-                                            <FormControlLabel
-                                                control={<Checkbox checked={false} name="antoine" />}
-                                                label="Antoine Llorca"
-                                            />
-                                            <FormControlLabel
-                                                control={<Checkbox checked={false} name="antoine" />}
-                                                label="Antoine Llorca"
-                                            />
-                                            </Grid>
-                                        </FormGroup>
-                                    </FormControl>
-                                </Grid>
+                            <Grid item xs={12}>
+                                {this.renderizarComentarios()}
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    endIcon={<Icon>send</Icon>}
+                                    type="submit"
+                                >
+                                    Enviar comentario
+                                </Button>
                             </Grid>
                         </Grid>
                     </form>
@@ -213,7 +233,9 @@ class ModifyDataView extends React.Component<Props, State> {
     }
 }
 
-export default reduxForm<UserRegister, UserFormProps>({
+
+export default reduxForm<UserRegister, ModifyDataFormProps>({
     form: 'modifyForm',
     enableReinitialize: true,
+    // @ts-ignore
 })(ModifyDataView);

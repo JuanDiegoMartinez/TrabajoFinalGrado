@@ -5,6 +5,8 @@ import LoginReducer from "../modules/login/reducers/LoginReducer";
 import NewsReducer from "../modules/news/reducers/NewsReducer";
 import VideogamesReducer from "../modules/videogames/reducers/VideogamesReducer";
 import VideogameReducer from "../modules/videogames/reducers/VideogameReducer";
+import NavbarReducer from "../base/screens/menu/bars/navbar/NavbarReducer";
+import ModifyDataReducer from "../modules/modifyData/reducers/ModifyDataReducer";
 
 
 export default combineReducers<any>({
@@ -13,5 +15,7 @@ export default combineReducers<any>({
     LoginReducer,
     NewsReducer,
     VideogamesReducer,
-    VideogameReducer
+    VideogameReducer,
+    NavbarReducer,
+    ModifyDataReducer,
 })
