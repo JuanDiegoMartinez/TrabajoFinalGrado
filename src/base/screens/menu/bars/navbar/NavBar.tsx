@@ -1,12 +1,15 @@
 import React from "react";
-import {Navbar} from 'react-bootstrap';
 import {Link as RouterLink} from "react-router-dom";
 import {connect} from "react-redux";
-import {newLogin} from "../../../../../modules/login/actions/LoginActions";
-import {navbarAction} from "./NavbarActions";
-import {Link} from "@material-ui/core";
-
-//import logo from "../../../../res/img/logo.svg";
+import {navbarAction, navbarCerrarSesionAction} from "./NavbarActions";
+import {Avatar, IconButton, Link, Menu, MenuItem} from "@material-ui/core";
+import logoUji from "../../../../../res/img/logoUji.png";
+import AppBar from "@material-ui/core/AppBar";
+import {AccountCircle} from "@material-ui/icons";
+import SettingsIcon from '@material-ui/icons/Settings';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import history from "../../../../../history";
 
 interface ReduxState {
     user: string,
@@ -15,24 +18,87 @@ interface ReduxState {
 
 interface Actions {
     navbarAction: () => string,
+    navbarCerrarSesionAction: () => any
 }
 
 type Props = ReduxState & Actions;
 
-class NavBar extends React.Component<Props, {}> {
+interface State {
+    open: boolean
+}
+
+class NavBar extends React.Component<Props, State> {
 
     componentWillMount(): void {
         this.props.navbarAction();
+        this.setState({
+            open: false
+        })
+    }
 
+    handleMenu = () => {
+        this.setState({
+            open: true
+        })
+    }
+
+    handleClose = () => {
+        this.setState({
+            open: false
+        })
+    }
+
+    opciones = () => {
+        history.push(`/usuario/${this.props.user}`);
+    }
+
+    cerrarSesion = () => {
+        this.props.navbarCerrarSesionAction();
+        history.push("/");
     }
 
     render() : React.ReactNode {
+
         return (
-            <Navbar className="navbar">
-                <Navbar.Brand>
-                    <p>{this.props.user}</p>
-                </Navbar.Brand>
-            </Navbar>
+            <AppBar className="navbar" >
+                <div>
+                    <img src={logoUji} className="imagen"/>
+                    {this.props.user === '' ?
+                        <Link to="/login" component={RouterLink} className="link" >Sesión no iniciada (Haz click para iniciar sesión)</Link>
+                    :
+                        <div className="divSesionIniciada">
+                            <div className="divUsuario" onClick={this.handleMenu}>
+                                <Avatar src={this.props.imagen} className="avatar"/>
+                                {this.props.user}
+                                <MoreVertIcon />
+                            </div>
+
+                            <Menu style={{top: '40px'}}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'center',
+                                }}
+                                open={this.state.open}
+                                onClose={this.handleClose}
+                            >
+                                <MenuItem onClick={this.opciones}>
+                                    <SettingsIcon/>
+                                    Opciones
+                                </MenuItem>
+                                <MenuItem onClick={this.cerrarSesion}>
+                                    <PowerSettingsNewIcon/>
+                                    Cerrar Sesión
+                                </MenuItem>
+                            </Menu>
+                        </div>
+                    }
+                </div>
+            </AppBar>
         );
     }
 }
@@ -45,4 +111,4 @@ const mapStateToProps = (state: any) : ReduxState => {
 }
 
 // @ts-ignore
-export default connect(mapStateToProps, {navbarAction})(NavBar);
+export default connect(mapStateToProps, {navbarAction, navbarCerrarSesionAction})(NavBar);

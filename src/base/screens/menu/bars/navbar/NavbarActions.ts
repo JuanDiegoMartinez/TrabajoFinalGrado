@@ -18,3 +18,22 @@ export const navbarAction = () => async (dispatch: Dispatch<any>) => {
         payload: body
     })
 }
+
+export const navbarCerrarSesionAction = () => async (dispatch: Dispatch<any>) => {
+
+    //Llamar al backend y pasarle los datos del login
+    const response = await fetch('/cerrarSession', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+
+    const body = await response.json();
+    console.log(body);
+
+    dispatch({
+        type: SESSION_ACTION,
+        payload: body
+    })
+}

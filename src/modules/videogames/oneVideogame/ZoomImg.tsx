@@ -24,7 +24,8 @@ const Image = posed.img({
         height: '100%',
         transition,
         flip: true,
-        borderRadius: '8px'
+        borderRadius: '8px',
+        boxShadow: '2px 0 7px rgba(0, 0, 0, .5)'
     },
     zoom: {
         position: 'fixed',

@@ -8,7 +8,6 @@ const INITIAL_STATE = {
 
 export default (state: any = INITIAL_STATE, action: Action) : {} => {
 
-
     switch (action.type) {
         case SESSION_ACTION:
             if (action.payload.user === undefined) {

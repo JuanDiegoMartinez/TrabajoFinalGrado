@@ -7,6 +7,11 @@ import VideogamesReducer from "../modules/videogames/reducers/VideogamesReducer"
 import VideogameReducer from "../modules/videogames/reducers/VideogameReducer";
 import NavbarReducer from "../base/screens/menu/bars/navbar/NavbarReducer";
 import ModifyDataReducer from "../modules/modifyData/reducers/ModifyDataReducer";
+import GenresReducer from "../modules/genres/reducers/GenresReducer";
+import GenreReducer from "../modules/genres/reducers/GenreReducer";
+import PublisherReducer from "../modules/publishers/reducers/PublisherReducer";
+import PublishersReducer from "../modules/publishers/reducers/PublishersReducer";
+import WebsReducer from "../modules/webs/reducers/WebsReducer";
 
 
 export default combineReducers<any>({
@@ -18,4 +23,9 @@ export default combineReducers<any>({
     VideogameReducer,
     NavbarReducer,
     ModifyDataReducer,
+    GenresReducer,
+    GenreReducer,
+    PublishersReducer,
+    PublisherReducer,
+    WebsReducer
 })

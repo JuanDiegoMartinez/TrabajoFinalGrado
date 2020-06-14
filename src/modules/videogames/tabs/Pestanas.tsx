@@ -68,7 +68,7 @@ export default class Pestanas extends React.Component<SimpleTabsProps, SimpleTab
                     <Tabs value={this.state.pestanaActual} onChange={this.handleChange} aria-label="simple tabs example" centered>
                         <Tab label="Genero"/>
                         <Tab label="Plataforma"/>
-                        <Tab label="Compañia"/>
+                        <Tab label="Desarrolladores"/>
                     </Tabs>
                 </AppBar>
                 <TabPanel value={this.state.pestanaActual} index={0}>

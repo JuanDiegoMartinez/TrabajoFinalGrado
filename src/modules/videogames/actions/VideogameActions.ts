@@ -1,6 +1,5 @@
 import {Dispatch} from "react";
-import {NEW_ACCOUNT, NEW_COMMENT, VALORACIONES_ACTION, VIDEOGAME_ACTION} from "../../../redux/Types";
-import history from "../../../history";
+import {NEW_COMMENT, VALORACIONES_ACTION, VIDEOGAME_ACTION} from "../../../redux/Types";
 
 //Maneja la petición de los videojuegos
 export const videogameActionCreator = (slug: string) => async (dispatch: Dispatch<any>) => {

@@ -4,19 +4,20 @@ import {News} from "../../../models/data/News";
 import {Backdrop, CircularProgress, Link, TableBody, TableCell, TableFooter, TableRow} from "@material-ui/core";
 import TablePaginationComponent from "../../../models/templates/TablePaginationComponent";
 import {Link as RouterLink} from "react-router-dom";
+import {Web} from "../../../models/data/Web";
 
-interface NewsViewTableProps {
-    data: News[],
+interface WebsViewTableProps {
+    data: Web[],
     page: number | undefined,
     rowsPerPage: number | undefined
 }
 
-interface NewsViewTableState {
+interface WebsViewTableState {
     rowsPerPage: number,
     page: number
 }
 
-export default class NewsViewTable extends TableComponent<NewsViewTableProps, NewsViewTableState> {
+export default class WebsViewTable extends TableComponent<WebsViewTableProps, WebsViewTableState> {
 
     componentWillMount(): void {
 
@@ -32,7 +33,7 @@ export default class NewsViewTable extends TableComponent<NewsViewTableProps, Ne
     }
 
     //Se ejecuta cuando se reciben props
-    componentWillReceiveProps(props: Readonly<NewsViewTableProps>): void {
+    componentWillReceiveProps(props: Readonly<WebsViewTableProps>): void {
 
         const {page, rowsPerPage} = props;
 
@@ -71,22 +72,20 @@ export default class NewsViewTable extends TableComponent<NewsViewTableProps, Ne
 
         let {rowsPerPage, page} = this.state;
 
-        let newsSlice = this.props.data.slice(rowsPerPage * page, (rowsPerPage * page) + rowsPerPage);
+        let websSlice = this.props.data.slice(rowsPerPage * page, (rowsPerPage * page) + rowsPerPage);
 
-        return newsSlice.map((object: News) => {
+        return websSlice.map((object: Web) => {
 
             return (
-                <Link component={RouterLink} to={{pathname: `/noticia/${object.title}`, state: object}}>
-                    <TableRow className="fila">
-                        <TableCell className="col1">
-                            <img src={object.urlImage} alt="no hay imagen" className="image"/>
-                        </TableCell>
-                        <TableCell className="col2">
-                            <div className="titulo">{object.title}</div>
-                            <div className="descripcion">{object.description}</div>
-                        </TableCell>
-                    </TableRow>
-                </Link>
+                <TableRow className="fila">
+                    <TableCell className="col1">
+                        <img src={object.urlImage} alt="no hay imagen" className="image"/>
+                    </TableCell>
+                    <TableCell className="col2">
+                        <a href={object.urlWeb} className="titulo">{object.name}</a>
+                        <div className="descripcion">{object.description}</div>
+                    </TableCell>
+                </TableRow>
             );
         })
     }

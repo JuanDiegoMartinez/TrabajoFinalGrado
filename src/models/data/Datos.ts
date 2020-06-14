@@ -1,5 +1,5 @@
 export const generos = ['Action', 'Indie', 'Adventure', 'RPG', 'Strategy', 'Shooter', 'Casual', 'Simulation',
-'Puzzle', 'Arcade', 'Platformer', 'Racing', 'Sports', 'Massively Multiplayer', 'Family', 'Fighting', 'Board Games', 'Educational', 'Card'];
+'Puzzle', 'Arcade', 'Platformer', 'Racing', 'Sports', 'Massively Multiplayer', 'Family', 'Fighting', 'Board Games', 'Card'];
 
 export const plataformas = ['PC', 'PlayStation 4', 'Xbox One', 'Nintendo Switch', 'iOS', 'Android', 'Xbox 360', 'PlayStation 3',
 'macOS', 'Linux']

@@ -1,0 +1,55 @@
+import React from "react";
+import {Genre} from "../../../models/data/Genre";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import {Container} from "@material-ui/core";
+import {Link} from "react-router-dom";
+
+interface GenreViewProps {
+    genero: Genre,
+    juegos: any[]
+}
+
+export default class GenreView extends React.Component<GenreViewProps, {}> {
+
+    renderJuegos = () => {
+
+        return this.props.juegos.map((juego: any) => {
+            return(
+                <Grid className="gridImagenes" item xs={12} sm={4}>
+                    <img src={juego.urlImage} className="imagen"/>
+                    <Link to={`/videojuegos/${juego.slug}`} className="link">{juego.name}</Link>
+                </Grid>
+            )
+        })
+    }
+
+    render() : React.ReactNode {
+
+        if (!this.props.genero && !this.props.juegos) {
+            return null;
+        }
+
+        const {name, urlImage, description} = this.props.genero;
+
+        return(
+            <Container maxWidth="md" className="container">
+                <div className="div">
+                    <Typography component="h1" className="titulo">
+                        {name}
+                    </Typography>
+                    <Grid container spacing={3}>
+                        <Grid className="grid" item xs={12}>
+                            <img alt="Imagen no disponible" className="imagen" src={urlImage} />
+                            <aside className="texto">{description}</aside>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <p>Juegos relacionados con el género:</p>
+                        </Grid>
+                        {this.renderJuegos()}
+                    </Grid>
+                </div>
+            </Container>
+        );
+    }
+}
