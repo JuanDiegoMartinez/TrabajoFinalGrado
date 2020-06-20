@@ -17,3 +17,22 @@ export const websAction = () => async (dispatch: Dispatch<any>) => {
         payload: body
     })
 }
+
+//Maneja la petición de los tipos
+export const websBusquedaAction = (pestanaActual: number | undefined, seleccionado: string | undefined) => async (dispatch: Dispatch<any>) => {
+
+    const response = await fetch('/busquedaWebs', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({pestanaActual, seleccionado})
+    });
+
+    const body = await response.json();
+
+    dispatch({
+        type: WEBS_ACTION,
+        payload: body
+    })
+}

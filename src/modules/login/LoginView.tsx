@@ -11,6 +11,11 @@ import Container from '@material-ui/core/Container';
 import {Field, InjectedFormProps, reduxForm, WrappedFieldProps} from "redux-form";
 import {Login} from "../../models/data/Login";
 import {handleButtonValidate, validate} from "./validation/Validation";
+import history from "../../history";
+
+interface LoginViewProps {
+    onRecuperarPassword: () => void
+}
 
 interface LoginFormProps {
     onFormSubmit: (values: Login) => void
@@ -22,7 +27,7 @@ export interface FormInputProps extends WrappedFieldProps {
     type: string
 }
 
-type Props = InjectedFormProps<Login, LoginFormProps> & LoginFormProps;
+type Props = InjectedFormProps<Login, LoginFormProps> & LoginFormProps & LoginViewProps;
 
 class LoginView extends React.Component<Props> {
 
@@ -54,7 +59,11 @@ class LoginView extends React.Component<Props> {
     }
 
     recuperarPassword = () => {
-        console.log("hola");
+        this.props.onRecuperarPassword();
+    }
+
+    crearCuenta = () => {
+        history.push("/registro");
     }
 
     render() : React.ReactNode {
@@ -97,7 +106,7 @@ class LoginView extends React.Component<Props> {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link style={{cursor: 'pointer'}}>
+                                <Link style={{cursor: 'pointer'}} onClick={this.crearCuenta}>
                                     No tienes cuenta? Create una!
                                 </Link>
                             </Grid>
@@ -116,8 +125,10 @@ class LoginView extends React.Component<Props> {
     }
 }
 
+
 export default reduxForm<Login, LoginFormProps>({
     form: 'loginForm',
     enableReinitialize: true,
     validate
+    // @ts-ignore
 })(LoginView);

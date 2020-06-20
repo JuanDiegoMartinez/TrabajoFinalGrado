@@ -14,26 +14,41 @@ interface Actions {
     newLogin: (formValues: Login) => any
 }
 
+interface State {
+    recuperarPassword: boolean
+}
+
 type Props = ReduxState & Actions;
 
-class LoginDataContainer extends React.Component<Props, {}> {
+class LoginDataContainer extends React.Component<Props, State> {
+
+    componentWillMount(): void {
+        this.setState({
+            recuperarPassword: false
+        })
+    }
+
+    onRecuperarPassword = () => {
+        this.setState({
+            recuperarPassword: true
+        })
+    }
 
     onLoginSubmit = (values: Login) : void => {
         this.props.newLogin(values);
     }
 
-    //Falta
     render(): React.ReactNode {
 
         return (
             <div>
                 <ModalComponent
-                    open={false}
+                    open={this.state.recuperarPassword}
                     parrafo={"Para recuperar tu contraseña escribe tu email"}
                     icono={<MailOutlineIcon className="icono"/>}
                     recuperarEmail={true}
                 />
-                <LoginView onFormSubmit={this.onLoginSubmit}/>
+                <LoginView onFormSubmit={this.onLoginSubmit} onRecuperarPassword={this.onRecuperarPassword}/>
             </div>
         );
     }

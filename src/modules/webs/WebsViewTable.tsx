@@ -1,10 +1,8 @@
 import React from "react";
-import TableComponent from "../../../models/templates/TableComponent";
-import {News} from "../../../models/data/News";
-import {Backdrop, CircularProgress, Link, TableBody, TableCell, TableFooter, TableRow} from "@material-ui/core";
-import TablePaginationComponent from "../../../models/templates/TablePaginationComponent";
-import {Link as RouterLink} from "react-router-dom";
-import {Web} from "../../../models/data/Web";
+import TableComponent from "../../models/templates/TableComponent";
+import {Backdrop, CircularProgress, TableBody, TableCell, TableFooter, TableRow} from "@material-ui/core";
+import TablePaginationComponent from "../../models/templates/TablePaginationComponent";
+import {Web} from "../../models/data/Web";
 
 interface WebsViewTableProps {
     data: Web[],
@@ -82,7 +80,7 @@ export default class WebsViewTable extends TableComponent<WebsViewTableProps, We
                         <img src={object.urlImage} alt="no hay imagen" className="image"/>
                     </TableCell>
                     <TableCell className="col2">
-                        <a href={object.urlWeb} className="titulo">{object.name}</a>
+                        <a href={object.urlWeb} className="titulo" target="_blank">{object.name}</a>
                         <div className="descripcion">{object.description}</div>
                     </TableCell>
                 </TableRow>

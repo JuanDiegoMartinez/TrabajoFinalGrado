@@ -1,31 +1,28 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
-import {
-    Avatar,
-    Button,
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    FormGroup,
-    FormHelperText,
-    FormLabel, Icon
-} from "@material-ui/core";
+import {Avatar, Button, Icon, IconButton, InputAdornment} from "@material-ui/core";
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import {Field, InjectedFormProps, reduxForm, WrappedFieldProps} from "redux-form";
-import {validate} from "../register/validation/Validation";
 import {UserComplete, UserRegister} from "../../models/data/User";
 import {Valoracion} from "../../models/data/Valoracion";
+import Comentarios from "./Comentarios";
+import SendIcon from '@material-ui/icons/Send';
+import {handleButtonValidate} from "./validation/Validation";
+import {AccountCircle, Visibility, VisibilityOff} from "@material-ui/icons";
+import firebase from 'firebase';
 
 interface ModifyDataProps {
+    comentarios: Valoracion[],
+    imagen: string
 }
 
-interface ModifyDataFormProps {
+interface ModifyUserDataFormProps {
     initialValues: UserComplete
-    onFormSubmit: (values: UserRegister) => void,
-    comentarios: Valoracion[]
+    onFormUserDataSubmit: (values: UserRegister) => void,
+    onImagenSubmit: (url: string) => void
+    onCommentsSubmit: (comentarios: Valoracion[]) => void
 }
 
 interface FormInputProps extends WrappedFieldProps {
@@ -36,83 +33,33 @@ interface FormInputProps extends WrappedFieldProps {
     comment: string
 }
 
-type Props = InjectedFormProps<UserRegister, ModifyDataFormProps> & ModifyDataFormProps & ModifyDataProps;
+type Props = InjectedFormProps<UserRegister, ModifyUserDataFormProps> & ModifyUserDataFormProps & ModifyDataProps;
 
 interface State {
-    picture: any
+    mostrarComentarios: boolean,
 }
 
 class ModifyDataView extends React.Component<Props, State> {
 
-    constructor(props: Props) {
-        super(props);
-
+    componentWillMount(): void {
         this.state = {
-            picture: ""
+            mostrarComentarios: false,
         }
     }
 
     handleUpload = async (event: any) => {
         const file = event.target.files[0];
+        const storageRef = firebase.storage().ref(`/${this.props.initialValues.user}.jpg`);
+        const task = storageRef.put(file);
 
-        console.log(event.target.files);
-        console.log(file);
-
-        this.setState({
-            picture: file
+        task.on('state_changed', snapshot => {
+        }, (error: any) => {
+            console.log(error.message)
+        }, () => {
+            storageRef.getDownloadURL().then((url: any) => {
+                this.props.onImagenSubmit(url);
+            })
         })
-
-        //const response = await axios.post('/imagen2', file);
-    }
-
-    handleButton = async (event: any) => {
-        event.preventDefault();
-        console.log(this.state);
-
-        let formData = new FormData();
-
-        formData.append('pic', this.state.picture);
-        formData.append('nombre', "Julian");
-
-        //const response = await axios.post('/imagen2', formData);
-
-        //console.log(response.data);
-
-        this.setState({
-            picture: "hfljaksd"
-        })
-    }
-
-    renderInputComentarios = (formProps : FormInputProps) : React.ReactNode => {
-
-        console.log("Comentarios");
-        console.log("formProps.input.value: ", formProps.input.value);
-        console.log("formProps.comment: ", formProps.comment)
-
-
-        if (formProps.input.value === "") {
-            formProps.input.value = formProps.comment;
-        }
-
-        const fallo = formProps.meta.error && formProps.meta.touched ? true : false;
-
-        return(
-            <TextField
-                error={fallo}
-                helperText={fallo ? formProps.meta.error : ''}
-                label={formProps.label}
-                type={formProps.type}
-                inputProps={{...formProps.input}}
-                //placeholder={formProps.comment}
-                multiline
-                rows={4}
-                variant="filled"
-                className="comentario"
-                InputLabelProps={{
-                    shrink: true,
-                }}
-            />
-        )
     }
 
     //formProps contiene las funciones y datos
@@ -128,7 +75,6 @@ class ModifyDataView extends React.Component<Props, State> {
                     helperText={fallo ? formProps.meta.error : ''}
                     autoComplete="off"
                     variant="outlined"
-                    required
                     fullWidth
                     label={formProps.label}
                     inputProps={{...formProps.input}}
@@ -143,7 +89,6 @@ class ModifyDataView extends React.Component<Props, State> {
                     helperText={fallo ? formProps.meta.error : ''}
                     autoComplete="off"
                     variant="outlined"
-                    required
                     fullWidth
                     label={formProps.label}
                     inputProps={{...formProps.input}}
@@ -156,43 +101,60 @@ class ModifyDataView extends React.Component<Props, State> {
         }
     }
 
-    onSubmit = (formValues: any) : void => {
-        console.log("hola");
-        console.log(formValues)
-    }
+    onFormSubmit = async (formValues: any): Promise<void> => {
 
-    renderizarComentarios = () => {
+        //Comprueba que todos los valores sean correctos, si no son correctos no envía en formulario
+        await handleButtonValidate(formValues, this.props.initialValues.email);
 
-        if (this.props.comentarios !== undefined) {
-            return this.props.comentarios.map((comentario: Valoracion) => {
-                return (
-                    <div>
-                        <p>Comentario del juego: {comentario.slug}</p>
-                        <Field name={comentario.slug} component={this.renderInputComentarios} label="Comentario" type="text" comment={comentario.comment} />
-                    </div>
-                )
-            })
+        if (!(this.props.initialValues === formValues)) {
+            this.props.onFormUserDataSubmit(formValues);
         }
-        return <div>No has realizado ningún comentario</div>
     }
+
+    botonRenderizarComentarios = () => {
+
+        this.setState({
+            mostrarComentarios: !this.state.mostrarComentarios
+        })
+
+        if (this.state.mostrarComentarios) {
+            // @ts-ignore
+            document.getElementById("botonComentarios").innerText = "Muestra los comentarios";
+        }
+
+        else {
+            // @ts-ignore
+            document.getElementById("botonComentarios").innerText = "Esconde los comentarios";
+        }
+    }
+
+    renderizarComentarios = (mostrar: boolean) => {
+
+        if (mostrar) {
+            return (<Comentarios comentarios={this.props.comentarios} onCommentsSubmit={this.props.onCommentsSubmit}/>)
+        }
+        return null;
+    }
+
 
     render(): React.ReactNode {
+
         return(
             <Container maxWidth="md" className="container">
-                <div className="div">
-                    <Avatar style={{width: '200px', height: '200px', marginBottom: '10px'}}>
-                        <img src={require('../../res/img/imagen.png')} alt="no hay imagen"/>
+                <div className="divModificar">
+                    <Avatar className="avatarModificar">
+                        <img src={this.props.imagen} alt="no hay imagen" className="imagenModificar"/>
                     </Avatar>
                     <Button
                         variant="contained"
-                        color="default"
+                        color="primary"
                         component="label"
                         startIcon={<CloudUploadIcon/>}
                     >
                         Upload
                         <input type="file" onChange={this.handleUpload} style={{display: 'none'}}/>
                     </Button>
-                    <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="form">
+                    <form onSubmit={this.props.handleSubmit(this.onFormSubmit)} className="form">
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={6}>
                                 <Field name="user" component={this.renderInput} label="Nombre de usuario" type="text" disabled={true}/>
@@ -213,20 +175,25 @@ class ModifyDataView extends React.Component<Props, State> {
                                 <Field name="password2" component={this.renderInput} label="Confirmar contraseña" type="password"/>
                             </Grid>
                             <Grid item xs={12}>
-                                {this.renderizarComentarios()}
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    endIcon={<Icon>send</Icon>}
-                                    type="submit"
-                                >
-                                    Enviar comentario
-                                </Button>
+                                <Button type="submit" color="primary" variant="contained" startIcon={<SendIcon/>} className="botonModificarDatos"> Modificar Datos </Button>
                             </Grid>
                         </Grid>
                     </form>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12}>
+                            <Button
+                                type="submit"
+                                onClick={this.botonRenderizarComentarios}
+                                id="botonComentarios"
+                                color="default"
+                                variant="contained"
+                                className="botonMuestraComentarios"
+                            >
+                                Muestra los comentarios
+                            </Button>
+                        </Grid>
+                        {this.renderizarComentarios(this.state.mostrarComentarios)}
+                    </Grid>
                 </div>
             </Container>
         );
@@ -234,7 +201,7 @@ class ModifyDataView extends React.Component<Props, State> {
 }
 
 
-export default reduxForm<UserRegister, ModifyDataFormProps>({
+export default reduxForm<UserRegister, ModifyUserDataFormProps>({
     form: 'modifyForm',
     enableReinitialize: true,
     // @ts-ignore

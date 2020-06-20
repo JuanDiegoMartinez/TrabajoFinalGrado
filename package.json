@@ -10,6 +10,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "@types/firebase": "^3.2.1",
     "@types/history": "^4.7.5",
     "@types/jest": "^24.9.1",
     "@types/node": "^12.12.37",
@@ -24,11 +25,14 @@
     "@types/redux-form": "^8.2.3",
     "@types/redux-thunk": "^2.1.0",
     "axios": "^0.19.2",
+    "classnames": "latest",
+    "firebase": "^7.15.3",
     "history": "^4.10.1",
     "node-sass": "^4.14.0",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
+    "react-pose": "3.3.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-router-redux": "^4.0.8",
@@ -37,9 +41,7 @@
     "redux": "^4.0.5",
     "redux-form": "^8.3.5",
     "redux-thunk": "^2.3.0",
-    "typescript": "^3.7.5",
-    "react-pose": "3.3.0",
-    "classnames": "latest"
+    "typescript": "^3.7.5"
   },
   "scripts": {
     "start": "react-scripts start",

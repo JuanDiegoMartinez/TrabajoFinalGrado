@@ -31,7 +31,6 @@ export const valoracionesAction = (slug: string) => async (dispatch: Dispatch<an
     });
 
     const body = await response.json();
-    console.log(body)
 
     dispatch({
         type: VALORACIONES_ACTION,
