@@ -1,5 +1,5 @@
 import {Dispatch} from "react";
-import {VIDEOGAMES_ACTION} from "../../../redux/Types";
+import {VACIAR_REDUCER_VIDEOJUEGOS, VIDEOGAMES_ACTION} from "../../../redux/Types";
 
 //Maneja la petición de los videojuegos
 export const videogamesActionCreator = () => async (dispatch: Dispatch<any>) => {
@@ -36,4 +36,12 @@ export const busquedaActionCreator = (palabra: string | undefined, pestanaActual
         type: VIDEOGAMES_ACTION,
         payload: body
     })
+}
+
+export const vaciarReducerVideojuegos = () => {
+
+    return {
+        type: VACIAR_REDUCER_VIDEOJUEGOS,
+        payload: ""
+    }
 }

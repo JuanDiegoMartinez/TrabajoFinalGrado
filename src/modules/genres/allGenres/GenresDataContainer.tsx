@@ -3,6 +3,7 @@ import GenresView from "./GenresView";
 import {Genre, PartialGenre} from "../../../models/data/Genre";
 import {connect} from "react-redux";
 import {genresAction} from "../actions/GenresActions";
+import {borrarCookies} from "../../../conexion/borrarCookies";
 
 interface ReduxState {
     generos: PartialGenre[],
@@ -17,6 +18,7 @@ type Props = ReduxState & ActionProps;
 class GenresDataContainer extends React.Component<Props, {}> {
 
     componentWillMount(): void {
+        borrarCookies("");
         this.props.genresAction();
     }
 

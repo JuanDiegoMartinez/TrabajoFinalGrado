@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {newLogin} from "./actions/LoginActions";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import ModalComponent from "../../models/templates/ModalComponent";
+import {borrarCookies} from "../../conexion/borrarCookies";
 
 interface ReduxState {
     user: any
@@ -23,6 +24,7 @@ type Props = ReduxState & Actions;
 class LoginDataContainer extends React.Component<Props, State> {
 
     componentWillMount(): void {
+        borrarCookies("");
         this.setState({
             recuperarPassword: false
         })

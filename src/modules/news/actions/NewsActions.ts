@@ -1,5 +1,5 @@
 import {Dispatch} from "react";
-import {NEWS_ACTION} from "../../../redux/Types";
+import {NEWS_ACTION, VACIAR_REDUCER_NOTICIAS, VACIAR_REDUCER_VIDEOJUEGOS} from "../../../redux/Types";
 
 //Maneja la petición de las noticias
 export const newsActionCreator = () => async (dispatch: Dispatch<any>) => {
@@ -36,4 +36,12 @@ export const searchBarActionCreator = (palabra: string) => async (dispatch: Disp
         type: NEWS_ACTION,
         payload: body
     })
+}
+
+export const vaciarReducerNoticias = () => {
+
+    return {
+        type: VACIAR_REDUCER_NOTICIAS,
+        payload: ""
+    }
 }

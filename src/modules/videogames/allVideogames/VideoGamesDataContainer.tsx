@@ -2,7 +2,8 @@ import React from "react";
 import VideoGamesView from "./VideoGamesView";
 import {connect} from "react-redux";
 import {PartialVideogame} from "../../../models/data/Videogame";
-import {videogamesActionCreator, busquedaActionCreator} from "../actions/VideogamesActions";
+import {busquedaActionCreator, vaciarReducerVideojuegos, videogamesActionCreator} from "../actions/VideogamesActions";
+import {borrarCookies} from "../../../conexion/borrarCookies";
 
 interface ReduxState {
     videojuegos: PartialVideogame[],
@@ -13,7 +14,8 @@ interface ReduxState {
 
 interface ActionProps {
     videogamesActionCreator: () => PartialVideogame[]
-    busquedaActionCreator: (palabra: string | undefined, pestanaActual: number | undefined, seleccionado: string | undefined) => PartialVideogame[]
+    busquedaActionCreator: (palabra: string | undefined, pestanaActual: number | undefined, seleccionado: string | undefined) => PartialVideogame[],
+    vaciarReducerVideojuegos: () => void
 }
 
 type Props = ReduxState & ActionProps;
@@ -21,6 +23,7 @@ type Props = ReduxState & ActionProps;
 class VideoGamesDataContainer extends React.Component<Props, {}> {
 
     componentWillMount(): void {
+        borrarCookies("videojuegos");
         this.props.videogamesActionCreator();
     }
 
@@ -30,6 +33,10 @@ class VideoGamesDataContainer extends React.Component<Props, {}> {
 
     onFilterSubmit = (pestanaActual: number | undefined, seleccionado: string | undefined) : void => {
         this.props.busquedaActionCreator(undefined, pestanaActual, seleccionado);
+    }
+
+    componentWillUnmount(): void {
+        this.props.vaciarReducerVideojuegos();
     }
 
     render(): React.ReactNode {
@@ -60,4 +67,4 @@ const mapStateToProps = (state: any) : ReduxState => {
     }
 }
 
-export default connect(mapStateToProps, {videogamesActionCreator, busquedaActionCreator})(VideoGamesDataContainer as unknown as React.ComponentType<{}>);
+export default connect(mapStateToProps, {videogamesActionCreator, busquedaActionCreator, vaciarReducerVideojuegos})(VideoGamesDataContainer as unknown as React.ComponentType<{}>);

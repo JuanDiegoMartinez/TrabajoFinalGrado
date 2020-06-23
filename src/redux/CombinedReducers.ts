@@ -12,6 +12,7 @@ import GenreReducer from "../modules/genres/reducers/GenreReducer";
 import PublisherReducer from "../modules/publishers/reducers/PublisherReducer";
 import PublishersReducer from "../modules/publishers/reducers/PublishersReducer";
 import WebsReducer from "../modules/webs/reducers/WebsReducer";
+import NewReducer from "../modules/news/reducers/NewReducer";
 
 
 export default combineReducers<any>({
@@ -19,6 +20,7 @@ export default combineReducers<any>({
     RegisterReducer,
     LoginReducer,
     NewsReducer,
+    NewReducer,
     VideogamesReducer,
     VideogameReducer,
     NavbarReducer,

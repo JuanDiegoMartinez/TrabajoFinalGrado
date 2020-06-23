@@ -1,9 +1,13 @@
 import React from "react";
 import VideoGameView from "./VideoGameView";
 import {connect} from "react-redux";
-import {newComment, valoracionesAction, videogameActionCreator} from "../actions/VideogameActions";
+import {
+    newComment,
+    vaciarReducerVideojuego,
+    valoracionesAction,
+    videogameActionCreator
+} from "../actions/VideogameActions";
 import {Videogame} from "../../../models/data/Videogame";
-import {Backdrop, CircularProgress, Modal} from "@material-ui/core";
 import {Valoracion} from "../../../models/data/Valoracion";
 
 interface ExternalProps {
@@ -22,6 +26,7 @@ interface ActionProps {
     videogameActionCreator: (slug: string) => Videogame,
     newComment: (comment: Comment) => boolean,
     valoracionesAction: (slug: string) => Valoracion[],
+    vaciarReducerVideojuego: () => void
 }
 
 interface State {
@@ -33,8 +38,6 @@ type Props = ExternalProps & ReduxState & ActionProps;
 class VideoGameDataContainer extends React.Component<Props, State> {
 
     componentWillMount(): void {
-        //console.log("Estoy en componentWillMount")
-        //console.log(this.props.id)
         this.props.videogameActionCreator(this.props.id);
         this.setState({haComentado: false});
     }
@@ -44,19 +47,11 @@ class VideoGameDataContainer extends React.Component<Props, State> {
         this.setState({haComentado: true})
     }
 
+    componentWillUnmount(): void {
+        this.props.vaciarReducerVideojuego();
+    }
+
     render() : React.ReactNode {
-
-        //console.log("Estoy en el render")
-        //console.log(this.props.id);
-
-        //No se porque llama con los datos anteriores
-        if (this.props.videojuego !== undefined && this.props.id !== this.props.videojuego.slug) {
-            return(
-                <Backdrop open={true}>
-                    <CircularProgress color="inherit" />
-                </Backdrop>
-            );
-        }
 
         if(this.state.haComentado) {
             this.setState({haComentado: false});
@@ -89,4 +84,4 @@ const mapStateToProps = (state: any) : ReduxState => {
 }
 
 // @ts-ignore
-export default connect(mapStateToProps, {videogameActionCreator, newComment, valoracionesAction})(VideoGameDataContainer as unknown as React.ComponentType<ExternalProps>)
+export default connect(mapStateToProps, {videogameActionCreator, newComment, valoracionesAction, vaciarReducerVideojuego})(VideoGameDataContainer as unknown as React.ComponentType<ExternalProps>)

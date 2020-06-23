@@ -1,12 +1,12 @@
 import React from "react";
 import TableComponent from "../../../models/templates/TableComponent";
-import {News} from "../../../models/data/News";
+import {News, PartialNews} from "../../../models/data/News";
 import {Backdrop, CircularProgress, Link, TableBody, TableCell, TableFooter, TableRow} from "@material-ui/core";
 import TablePaginationComponent from "../../../models/templates/TablePaginationComponent";
 import {Link as RouterLink} from "react-router-dom";
 
 interface NewsViewTableProps {
-    data: News[],
+    data: PartialNews[],
     page: number | undefined,
     rowsPerPage: number | undefined
 }
@@ -73,10 +73,10 @@ export default class NewsViewTable extends TableComponent<NewsViewTableProps, Ne
 
         let newsSlice = this.props.data.slice(rowsPerPage * page, (rowsPerPage * page) + rowsPerPage);
 
-        return newsSlice.map((object: News) => {
+        return newsSlice.map((object: PartialNews) => {
 
             return (
-                <Link component={RouterLink} to={{pathname: `/noticia/${object.title}`, state: object}}>
+                <Link component={RouterLink} to={`/noticia/${object.slug}`}>
                     <TableRow className="fila">
                         <TableCell className="col1">
                             <img src={object.urlImage} alt="no hay imagen" className="image"/>

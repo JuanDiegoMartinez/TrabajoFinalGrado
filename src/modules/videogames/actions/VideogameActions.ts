@@ -1,5 +1,5 @@
 import {Dispatch} from "react";
-import {NEW_COMMENT, VALORACIONES_ACTION, VIDEOGAME_ACTION} from "../../../redux/Types";
+import {NEW_COMMENT, VACIAR_REDUCER_VIDEOJUEGO, VALORACIONES_ACTION, VIDEOGAME_ACTION} from "../../../redux/Types";
 
 //Maneja la petición de los videojuegos
 export const videogameActionCreator = (slug: string) => async (dispatch: Dispatch<any>) => {
@@ -55,4 +55,12 @@ export const newComment = (formValues: Comment) => async (dispatch: Dispatch<any
         type: NEW_COMMENT,
         payload: body
     })
+}
+
+export const vaciarReducerVideojuego = () => {
+
+    return {
+        type: VACIAR_REDUCER_VIDEOJUEGO,
+        payload: ""
+    }
 }

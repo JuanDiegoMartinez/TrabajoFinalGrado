@@ -5,6 +5,7 @@ import {newUser} from "./actions/RegisterActions";
 import {connect} from "react-redux";
 import ModalComponent from "../../models/templates/ModalComponent";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import {borrarCookies} from "../../conexion/borrarCookies";
 
 interface ReduxState {
     nuevaCuentaCreada: boolean
@@ -17,6 +18,10 @@ interface ActionProps {
 type Props = ActionProps & ReduxState;
 
 class RegisterDataContainer extends React.Component<Props, {}> {
+
+    componentWillMount(): void {
+        borrarCookies("");
+    }
 
     onRegisterSubmit = (values: UserRegister) : void => {
         this.props.newUser(values);

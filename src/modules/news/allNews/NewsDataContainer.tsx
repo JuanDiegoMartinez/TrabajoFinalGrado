@@ -1,19 +1,21 @@
 import React from "react";
 import NewsView from "./NewsView";
 import {connect} from "react-redux";
-import {News} from "../../../models/data/News";
-import {newsActionCreator, searchBarActionCreator} from "../actions/NewsActions";
+import {PartialNews} from "../../../models/data/News";
+import {newsActionCreator, searchBarActionCreator, vaciarReducerNoticias} from "../actions/NewsActions";
+import {borrarCookies} from "../../../conexion/borrarCookies";
 
 interface ReduxState {
-    noticias: News[],
+    noticias: PartialNews[],
     palabra: string,
     page: number,
     rowsPerPage: number
 }
 
 interface ActionProps {
-    newsActionCreator: () => News[]
-    searchBarActionCreator: (palabra: string) => News[]
+    newsActionCreator: () => PartialNews[]
+    searchBarActionCreator: (palabra: string) => PartialNews[]
+    vaciarReducerNoticias: () => void
 }
 
 type Props = ReduxState & ActionProps;
@@ -21,7 +23,12 @@ type Props = ReduxState & ActionProps;
 class NewsDataContainer extends React.Component<Props> {
 
     componentWillMount(): void {
+        borrarCookies("noticias");
         this.props.newsActionCreator();
+    }
+
+    componentWillUnmount(): void {
+        this.props.vaciarReducerNoticias();
     }
 
     onSearchSubmit = (palabra: string): void => {
@@ -55,4 +62,4 @@ const mapStateToProps = (state: any) : ReduxState => {
     }
 }
 
-export default connect(mapStateToProps, {newsActionCreator, searchBarActionCreator})(NewsDataContainer as unknown as React.ComponentType<{}>);
+export default connect(mapStateToProps, {newsActionCreator, searchBarActionCreator, vaciarReducerNoticias})(NewsDataContainer as unknown as React.ComponentType<{}>);

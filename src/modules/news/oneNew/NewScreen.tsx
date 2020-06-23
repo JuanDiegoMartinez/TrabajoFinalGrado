@@ -1,19 +1,16 @@
 import React from "react";
 import LoggedScreen from "../../../base/screens/LoggedScreen";
 import NewDataContainer from "./NewDataContainer";
-import {News} from "../../../models/data/News";
+import {RouteComponentProps} from "react-router-dom";
 
-interface NewScreenProps {
-    noticia: News
-}
+type Props = RouteComponentProps<{id: string}>
 
-export default class NewScreen extends LoggedScreen<NewScreenProps> {
+export default class NewScreen extends LoggedScreen<Props> {
 
     renderScreen(): React.ReactNode {
 
         return (
-            // @ts-ignore
-            <NewDataContainer noticia={this.props.location.state}/>
+            <NewDataContainer id={this.props.match.params.id}/>
         );
     }
 

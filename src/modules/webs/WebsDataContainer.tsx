@@ -3,6 +3,7 @@ import WebsView from "./WebsView";
 import {connect} from "react-redux";
 import {Web} from "../../models/data/Web";
 import {websAction, websBusquedaAction} from "./actions/WebsActions";
+import {borrarCookies} from "../../conexion/borrarCookies";
 
 interface ReduxState {
     webs: Web[],
@@ -21,6 +22,7 @@ type Props = ReduxState & ActionProps;
 class WebsDataContainer extends React.Component<Props, {}> {
 
     componentWillMount(): void {
+        borrarCookies("webs");
         this.props.websAction();
     }
 

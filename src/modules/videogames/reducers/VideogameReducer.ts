@@ -1,4 +1,10 @@
-import {Action, NEW_COMMENT, VALORACIONES_ACTION, VIDEOGAME_ACTION} from "../../../redux/Types";
+import {
+    Action,
+    NEW_COMMENT,
+    VACIAR_REDUCER_VIDEOJUEGO,
+    VALORACIONES_ACTION,
+    VIDEOGAME_ACTION
+} from "../../../redux/Types";
 
 export default (state: any = {}, action: Action) : {} => {
 
@@ -9,6 +15,8 @@ export default (state: any = {}, action: Action) : {} => {
             return {...state, nuevoComentario: action.payload};
         case VALORACIONES_ACTION:
             return {...state, valoraciones: action.payload};
+        case VACIAR_REDUCER_VIDEOJUEGO:
+            return {...state, videojuego: undefined, valoraciones: undefined};
         default:
             return state;
     }

@@ -3,6 +3,7 @@ import {PartialPublisher, Publisher} from "../../../models/data/Publisher";
 import React from "react";
 import {publishersAction} from "../actions/PublishersActions";
 import PublishersView from "./PublishersView";
+import {borrarCookies} from "../../../conexion/borrarCookies";
 
 interface ReduxState {
     editores: PartialPublisher[],
@@ -17,6 +18,7 @@ type Props = ReduxState & ActionProps;
 class PublishersDataContainer extends React.Component<Props, {}> {
 
     componentWillMount(): void {
+        borrarCookies("");
         this.props.publishersAction();
     }
 

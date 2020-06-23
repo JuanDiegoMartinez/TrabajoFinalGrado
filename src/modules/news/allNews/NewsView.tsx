@@ -1,11 +1,11 @@
 import React from "react";
 import SearchBar from "../../../models/templates/SearchBar";
 import Container from "@material-ui/core/Container";
-import {News} from "../../../models/data/News";
+import {News, PartialNews} from "../../../models/data/News";
 import NewsViewTable from "./NewsViewTable";
 
 interface NewsViewProps {
-    noticias: News[],
+    noticias: PartialNews[],
     onFormSubmit: (palabra: string) => void,
     palabra: string | undefined,
     page: number | undefined,

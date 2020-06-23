@@ -1,26 +1,12 @@
 import React from 'react';
 import {Videogame} from "../../../models/data/Videogame";
-import {
-    Avatar,
-    Box,
-    Button,
-    Container,
-    GridList,
-    GridListTile,
-    Icon,
-    TextareaAutosize,
-    TextField
-} from "@material-ui/core";
+import {Avatar, Backdrop, Box, Button, CircularProgress, Container} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Link from '@material-ui/core/Link';
 import ZoomImg from "./ZoomImg";
 import {Valoracion} from "../../../models/data/Valoracion";
 import {Rating} from "@material-ui/lab";
-import {Link as RouterLink} from "react-router-dom";
-import {reduxForm} from "redux-form";
-import {UserRegister} from "../../../models/data/User";
-import {validate} from "../../register/validation/Validation";
 import Comentario from "./Comentario";
 
 interface VideoGameViewProps {
@@ -36,6 +22,7 @@ interface VideoGameViewProps {
 export default class VideoGameView extends React.Component<VideoGameViewProps, {}> {
 
     componentDidMount(): void {
+
         if(this.props.videojuego !== undefined) {
             // @ts-ignore
             document.getElementById("textoVideojuego").innerHTML = this.props.videojuego.description;
@@ -43,31 +30,23 @@ export default class VideoGameView extends React.Component<VideoGameViewProps, {
 
     }
 
-    componentWillReceiveProps(nextProps: Readonly<VideoGameViewProps>, nextContext: any): void {
+    //Para que el primero me salga bien
+    componentDidUpdate(prevProps: Readonly<VideoGameViewProps>, prevState: Readonly<{}>, snapshot?: any): void {
+
         if(this.props.videojuego !== undefined) {
             // @ts-ignore
-            document.getElementById("textoVideojuego").innerHTML = nextProps.videojuego.description;
+            document.getElementById("textoVideojuego").innerHTML = this.props.videojuego.description;
         }
     }
 
     render() : React.ReactNode {
 
-        /*
-        if (this.props.videojuego === undefined || this.props.id !== this.props.videojuego.slug) {
+        if (!this.props.videojuego) {
             return(
                 <Backdrop open={true}>
                     <CircularProgress color="inherit" />
                 </Backdrop>
             );
-        }
-
-         */
-
-        //console.log("Estoy en VideoGameView")
-        //console.log("soy el usuario: ", this.props.user);
-
-        if (!this.props.videojuego) {
-            return null
         }
 
         const {name, urlImage, lanzamiento, metacritic, urlMetacritic, platforms,
@@ -80,8 +59,18 @@ export default class VideoGameView extends React.Component<VideoGameViewProps, {
                         {name}
                     </Typography>
                     <Grid container spacing={3}>
-                        <Grid className="grid" item xs={12}>
-                            <img alt="Imagen no disponible" className="imagen" src={urlImage} />
+                        <Grid item className="grid" xs={12}>
+
+                            <div>
+                            <img alt="Imagen no disponible" className="imagenJuego" src={urlImage} />
+
+                            <Button
+                                className="botonFavoritos"
+                                variant="contained"
+                            >
+                                hola
+                            </Button>
+                            </div>
                             <aside className="texto" id="textoVideojuego"> {this.props.videojuego.description}</aside>
                         </Grid>
                         <Grid item xs={12} sm={6}>

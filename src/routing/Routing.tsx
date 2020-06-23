@@ -1,17 +1,19 @@
 import React from "react";
-import {Router, Route} from 'react-router-dom';
+import {Route, Router} from 'react-router-dom';
 import {
     ROUTE_EDITOR,
     ROUTE_EDITORES,
     ROUTE_GENERO,
     ROUTE_GENEROS,
     ROUTE_HOME,
+    ROUTE_JUEGOS_FAVORITOS,
     ROUTE_LOGIN,
     ROUTE_MODIFYDATA,
     ROUTE_NEW,
     ROUTE_REGISTER,
     ROUTE_VIDEOGAME,
-    ROUTE_VIDEOGAMES, ROUTE_WEBS
+    ROUTE_VIDEOGAMES,
+    ROUTE_WEBS
 } from "./routes";
 import {History} from "history";
 import RegisterScreen from "../modules/register/RegisterScreen";
@@ -26,6 +28,7 @@ import GenreScreen from "../modules/genres/oneGenre/GenreScreen";
 import WebsScreen from "../modules/webs/WebsScreen";
 import PublishersScreen from "../modules/publishers/allPublishers/PublishersScreen";
 import PublisherScreen from "../modules/publishers/onePublisher/PublisherScreen";
+import GamesScreen from "../modules/favourites/games/GamesScreen";
 
 export interface RoutingProps {
     history: History,
@@ -49,6 +52,7 @@ export default class Routing extends React.Component<RoutingProps, any> {
                     <Route path={ROUTE_WEBS} exact component={WebsScreen}/>
                     <Route path={ROUTE_EDITORES} exact component={PublishersScreen}/>
                     <Route path={ROUTE_EDITOR} exact component={PublisherScreen}/>
+                    <Route path={ROUTE_JUEGOS_FAVORITOS} exact component={GamesScreen}/>
                 </Router>
             </div>
         );

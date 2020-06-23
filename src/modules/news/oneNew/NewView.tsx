@@ -1,5 +1,5 @@
 import React from "react";
-import {Container} from "@material-ui/core";
+import {Backdrop, CircularProgress, Container} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import {News} from "../../../models/data/News";
@@ -11,11 +11,30 @@ interface NewViewProps {
 export default class NewView extends React.Component<NewViewProps, {}> {
 
     componentDidMount(): void {
-        // @ts-ignore
-        document.getElementById("textoNoticia").innerHTML = this.props.noticia.content;
+
+        if(this.props.noticia !== undefined) {
+            // @ts-ignore
+            document.getElementById("textoNoticia").innerHTML = this.props.noticia.content;
+        }
+    }
+
+    componentDidUpdate(prevProps: Readonly<NewViewProps>, prevState: Readonly<{}>, snapshot?: any): void {
+
+        if(this.props.noticia !== undefined) {
+            // @ts-ignore
+            document.getElementById("textoNoticia").innerHTML = this.props.noticia.content;
+        }
     }
 
     render(): React.ReactNode {
+
+        if (!this.props.noticia) {
+            return(
+                <Backdrop open={true}>
+                    <CircularProgress color="inherit" />
+                </Backdrop>
+            );
+        }
 
         const {author, title, urlImage, published, urlNews} = this.props.noticia;
 

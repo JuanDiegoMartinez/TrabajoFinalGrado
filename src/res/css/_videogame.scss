@@ -17,16 +17,21 @@
 
     .grid {
 
-      .imagen {
-        float: left;
-        width: 40%;
-        margin: {
-          right: 10px;
-        }
-      }
+      div {
 
-      .texto {
-        text-align: justify;
+
+        .imagenJuego {
+          float: left;
+          width: 40%;
+          margin: {
+            right: 10px;
+            bottom: 10px;
+          }
+        }
+
+        .botonFavoritos {
+          float: left;
+        }
       }
     }
   }

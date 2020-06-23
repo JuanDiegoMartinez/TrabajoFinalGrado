@@ -10,6 +10,7 @@ import {
     obtenerDatosUsuarioAction
 } from "./actions/ModifyDataActions";
 import {Valoracion} from "../../models/data/Valoracion";
+import {borrarCookies} from "../../conexion/borrarCookies";
 
 interface ReduxState {
     datosUsuario: UserComplete,
@@ -29,6 +30,7 @@ type Props = ActionProps & ReduxState;
 class ModifyDataDataContainer extends React.Component<Props, {}> {
 
     componentWillMount(): void {
+        borrarCookies("");
         this.props.obtenerDatosUsuarioAction();
     }
 
