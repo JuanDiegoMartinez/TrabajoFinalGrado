@@ -1,4 +1,4 @@
-import {NEW_ACCOUNT} from "../../../redux/Types";
+import {NEW_ACCOUNT, VACIAR_REDUCER_REGISTRO} from "../../../redux/Types";
 import {Dispatch} from "react";
 import {UserRegister} from "../../../models/data/User";
 
@@ -19,4 +19,12 @@ export const newUser = (formValues: UserRegister) => async (dispatch: Dispatch<a
         type: NEW_ACCOUNT,
         payload: body
     })
+}
+
+export const vaciarReducerRegistro = () => {
+
+    return {
+        type: VACIAR_REDUCER_REGISTRO,
+        payload: ""
+    }
 }

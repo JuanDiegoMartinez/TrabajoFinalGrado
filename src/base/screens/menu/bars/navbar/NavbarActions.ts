@@ -30,7 +30,6 @@ export const navbarCerrarSesionAction = () => async (dispatch: Dispatch<any>) =>
     });
 
     const body = await response.json();
-    console.log(body);
 
     dispatch({
         type: SESSION_ACTION,

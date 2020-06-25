@@ -1,7 +1,7 @@
 import React from 'react';
 import RegisterView from "./RegisterView";
 import {UserRegister} from "../../models/data/User";
-import {newUser} from "./actions/RegisterActions";
+import {newUser, vaciarReducerRegistro} from "./actions/RegisterActions";
 import {connect} from "react-redux";
 import ModalComponent from "../../models/templates/ModalComponent";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
@@ -12,7 +12,8 @@ interface ReduxState {
 }
 
 interface ActionProps {
-    newUser: (formValues: UserRegister) => any
+    newUser: (formValues: UserRegister) => any,
+    vaciarReducerRegistro: () => any
 }
 
 type Props = ActionProps & ReduxState;
@@ -21,6 +22,10 @@ class RegisterDataContainer extends React.Component<Props, {}> {
 
     componentWillMount(): void {
         borrarCookies("");
+    }
+
+    componentWillUnmount(): void {
+        this.props.vaciarReducerRegistro();
     }
 
     onRegisterSubmit = (values: UserRegister) : void => {
@@ -49,4 +54,5 @@ const mapStateToProps = (state: any) : ReduxState => {
     }
 }
 
-export default connect(mapStateToProps, {newUser})(RegisterDataContainer);
+//@ts-ignore
+export default connect(mapStateToProps, {newUser, vaciarReducerRegistro})(RegisterDataContainer);

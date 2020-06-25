@@ -4,51 +4,109 @@ import React from 'react';
 // Import Chonky
 import 'chonky/style/main.css';
 import {FileBrowser, FileView} from 'chonky';
+import history from "../../../history";
+import {Link, Modal} from "@material-ui/core";
+import {Alert} from "@material-ui/lab";
+import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
+import Noty from 'noty';
+import 'noty/lib/noty.css';
+import 'noty/lib/themes/metroui.css';
 
-interface Props {}
+interface CarpetasProps {
+    modificarFavoritos: (lista: any[]) => void,
+    datos: any[],
+    tipo: string
+}
 
 interface State {
     currentFolderId: string,
     fileMap: any[],
-    currentFolder: any
+    currentFolder: any,
+    open: boolean
 }
 
-export default class Carpetas extends React.Component<Props, State> {
+export default class Carpetas extends React.Component<CarpetasProps, State> {
 
-    constructor(props: Props) {
-        super(props);
+    componentWillMount(): void {
+        this.setState({
+            currentFolderId: this.props.datos[0].id,
+            fileMap: this.props.datos,
+            currentFolder: this.props.datos[0],
+            open: false
+        })
+    }
 
-        const dir1 = {id: '1', name: 'dir1', isDir: true, childrenIds: ['2', '3']};
-        const fic1 = {id: '2', name: 'fic1', isDir: false, parentId: '1'};
-        const dir2 = {id: '3', name: 'dir2', isDir: true, parentId: '1', childrenIds: ['1', '4']};
-        const fic2 = {id: '4', name: 'fic2', isDir: false, parentId: '3'};
+    componentWillUnmount(): void {
+        this.props.modificarFavoritos(this.state.fileMap)
+    }
 
-        const array = [dir1, dir2, fic1, fic2];
-
-        this.state = {currentFolderId: dir1.id, fileMap: array, currentFolder: array[0]};
-
+    shouldComponentUpdate(nextProps: Readonly<CarpetasProps>, nextState: Readonly<State>, nextContext: any): boolean {
+        this.props.modificarFavoritos(nextState.fileMap);
+        return true;
     }
 
     handleFileOpen = (file: any) => {
         if (file.isDir) {
             this.setState({currentFolderId: file.id, currentFolder: file});
         } else {
-            //console.log(file)
+            if (this.props.tipo === "videojuegos") {
+                history.push(`/videojuegos/${file.id}`);
+            }
+            else {
+                //abrir una nueva pestaña con la web
+            }
+
         }
     };
 
     handleFolderCreate = () => {
-
-        const directorio = {id: "jesus", name: "dir3", isDir: true, parentId: this.state.currentFolderId};
-
-        let copiaFileMap = this.state.fileMap;
-        let padre = this.state.currentFolder;
-        padre.childrenIds.push(directorio.id);
-        let archivos = [...copiaFileMap, directorio];
-
-        this.setState({fileMap: archivos});
-
+        this.setState({open: true});
     };
+
+    onFormSubmit = (e: any) => {
+        e.preventDefault();
+
+        // @ts-ignore
+        if (document.getElementById("carpeta").value !== "") {
+
+            let estaCarpeta = false;
+
+            this.state.fileMap.forEach((file: any) => {
+                // @ts-ignore
+                if (file.id === document.getElementById("carpeta").value) {
+                    estaCarpeta = true;
+                }
+            })
+
+            if (!estaCarpeta) {
+                const directorio = {
+                    //@ts-ignore
+                    id: document.getElementById("carpeta").value,
+                    //@ts-ignore
+                    name: document.getElementById("carpeta").value,
+                    isDir: true,
+                    thumbnailUrl: null,
+                    childrenIds: [this.state.currentFolderId],
+                    parentId: this.state.currentFolderId
+                };
+
+                let copiaFileMap = this.state.fileMap;
+                let padre = this.state.currentFolder;
+                padre.childrenIds.push(directorio.id);
+                let archivos = [...copiaFileMap, directorio];
+
+                this.setState({fileMap: archivos, open: false});
+            }
+            else {
+                // @ts-ignore
+                new Noty({text: `El nombre ${document.getElementById("carpeta").value} ya está en uso.`, type: 'error', theme: 'metroui', timeout: 3000, layout: "topRight"}).show();
+            }
+
+        }
+        else {
+            new Noty({text: "El nombre de la carpeta no puede estar vacio.", type: 'error', theme: 'metroui', timeout: 3000, layout: "topRight"}).show();
+        }
+    }
 
     //Borrar de uno en uno o hacer llamada y que borre lo que no se puede alcanzar
     handleDeleteFiles = (files: any[], inputEvent: any) => {
@@ -58,9 +116,17 @@ export default class Carpetas extends React.Component<Props, State> {
         files.forEach((file: any) => {
 
             if(file.id === this.state.currentFolder.parentId) {
-                console.log("no se puede eliminar")
+                new Noty({text: "Esta carpeta no se puede eliminar.", type: 'error', theme: 'metroui', timeout: 3000, layout: "topRight"}).show();
             }
             else {
+
+                copiaFileMap.forEach((archivo: any) => {
+
+                    if(file.parentId === archivo.id) {
+                        archivo.childrenIds.splice(archivo.childrenIds.indexOf(file.id), 1);
+                    }
+                })
+                
                 copiaFileMap.splice(copiaFileMap.indexOf(file), 1);
             }
         })
@@ -109,7 +175,38 @@ export default class Carpetas extends React.Component<Props, State> {
         return file.thumbnailUrl;
     };
 
+    handleClose = () => {
+        this.setState({
+            open: false
+        })
+    }
+
+    renderizarModal = (open: boolean) => {
+        return (
+            <Modal
+                open={open}
+                onClose={this.handleClose}
+                className="Modal"
+                disableAutoFocus
+                disableEnforceFocus
+            >
+                <Alert className="alerta" variant="filled" severity="info" icon={false}>
+                    <CreateNewFolderIcon className="icono"/>
+                    <p>Introduce el nombre de la carpeta</p>
+                    <div>
+                        <form onSubmit={this.onFormSubmit}>
+                            <input type="text" className="input" id="carpeta" autoComplete="off"/>
+                            <br/>
+                            <button className="boton" type="submit">Enviar</button>
+                        </form>
+                    </div>
+                </Alert>
+            </Modal>
+        );
+    }
+
     render() {
+
         const folder = this.state.currentFolder;
 
         const folderChain = [];
@@ -144,12 +241,13 @@ export default class Carpetas extends React.Component<Props, State> {
 
         return (
             <div style={{height: 540}}>
+                {this.renderizarModal(this.state.open)}
                 <FileBrowser files={files} folderChain={folderChain} thumbnailGenerator={this.thumbnailGenerator}
                              onFileOpen={this.handleFileOpen} onFolderCreate={this.handleFolderCreate}
                              onDownloadFiles={this.handleMovesFiles} onDeleteFiles={this.handleDeleteFiles}
                              fillParentContainer={true} view={FileView.SmallThumbs}/>
             </div>
         );
-    }
 
+    }
 }

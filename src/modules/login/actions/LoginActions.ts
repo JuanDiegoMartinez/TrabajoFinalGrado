@@ -15,7 +15,7 @@ export const newLogin = (formValues: Login) => async (dispatch: Dispatch<any>) =
         body: JSON.stringify({email: formValues.email, password: formValues.password})
     });
 
-    const body = await response.text();
+    const body = await response.json();
 
     dispatch({
         type: NEW_LOGIN,

@@ -13,7 +13,9 @@ import history from "../../../../../history";
 
 interface ReduxState {
     user: string,
-    imagen: string
+    imagen: string,
+    juegosFavoritos: any[],
+    websFavoritas: any[]
 }
 
 interface Actions {
@@ -30,6 +32,7 @@ interface State {
 class NavBar extends React.Component<Props, State> {
 
     componentWillMount(): void {
+
         this.props.navbarAction();
         this.setState({
             open: false
@@ -106,7 +109,9 @@ class NavBar extends React.Component<Props, State> {
 const mapStateToProps = (state: any) : ReduxState => {
     return {
         user: state.NavbarReducer.user,
-        imagen: state.NavbarReducer.imagen
+        imagen: state.NavbarReducer.imagen,
+        juegosFavoritos: state.NavbarReducer.juegosFavoritos,
+        websFavoritas: state.NavbarReducer.websFavoritas
     }
 }
 
