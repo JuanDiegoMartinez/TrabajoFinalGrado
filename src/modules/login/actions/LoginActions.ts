@@ -4,7 +4,7 @@ import {NEW_LOGIN} from "../../../redux/Types";
 import history from "../../../history";
 
 
-export const newLogin = (formValues: Login) => async (dispatch: Dispatch<any>) => {
+export const newLogin = (formValues: Login, id: string | undefined) => async (dispatch: Dispatch<any>) => {
 
     //Llamar al backend y pasarle los datos del login
     const response = await fetch('/login', {
@@ -22,5 +22,10 @@ export const newLogin = (formValues: Login) => async (dispatch: Dispatch<any>) =
         payload: body
     })
 
-    history.goBack();
+    if (id === "registro") {
+        history.push("/");
+    }
+    else {
+        history.goBack();
+    }
 }

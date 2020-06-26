@@ -1,6 +1,7 @@
 import React from "react";
 import {Alert} from "@material-ui/lab";
-import {Link, Modal} from "@material-ui/core";
+import {Modal} from "@material-ui/core";
+import {Link} from "react-router-dom";
 
 interface PropsModalComponent {
     open: boolean,
@@ -72,7 +73,7 @@ export default class ModalComponent extends React.Component<Props, State> {
                             </form>
                         </div>
                             :
-                        <Link className="link" href="/login"> Ir a login </Link>}
+                        <Link className="link" to={{pathname: '/login', state: "registro"}} > Ir a login </Link>}
                 </Alert>
             </Modal>
         );

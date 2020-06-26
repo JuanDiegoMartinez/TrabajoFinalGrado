@@ -7,7 +7,8 @@ export default class RegisterScreen extends LoggedScreen {
     renderScreen(): React.ReactNode {
 
         return(
-            <LoginDataContainer />
+            // @ts-ignore
+            <LoginDataContainer id={this.props.location.state}/>
         );
     }
 }

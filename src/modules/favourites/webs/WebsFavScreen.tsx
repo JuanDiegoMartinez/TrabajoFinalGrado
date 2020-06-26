@@ -1,12 +1,12 @@
 import React from "react";
 import LoggedScreen from "../../../base/screens/LoggedScreen";
-import GamesDataContainer from "./GamesDataContainer";
+import WebsFavDataContainer from "./WebsFavDataContainer";
 
-export default class GamesScreen extends LoggedScreen {
+export default class WebsFavScreen extends LoggedScreen {
 
     renderScreen(): React.ReactNode {
         return (
-            <GamesDataContainer />
+            <WebsFavDataContainer />
         );
     }
 }

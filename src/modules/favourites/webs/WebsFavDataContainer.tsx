@@ -1,23 +1,23 @@
 import React from "react";
-import GamesView from "./GamesView";
 import {connect} from "react-redux";
+import WebsFavView from "./WebsFavView";
 
 interface ReduxState {
     user: string,
-    juegosFavoritos: any[],
+    websFavoritas: any[],
 }
 type Props = ReduxState;
 
-class GamesDataContainer extends React.Component<Props, {}> {
+class WebsFavDataContainer extends React.Component<Props, {}> {
 
-    modificarJuegosFavoritos = async (listaJuegos: any[]) => {
+    modificarWebsFavoritas = async (listaWebs: any[]) => {
 
-        fetch('/modificarJuegosFavoritos', {
+        fetch('/modificarWebsFavoritas', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(listaJuegos)
+            body: JSON.stringify(listaWebs)
         });
     }
 
@@ -25,7 +25,7 @@ class GamesDataContainer extends React.Component<Props, {}> {
 
         if (this.props.user !== "") {
             return (
-                <GamesView modificarFavoritos={this.modificarJuegosFavoritos} datos={this.props.juegosFavoritos} tipo={"videojuegos"}/>
+                <WebsFavView modificarFavoritos={this.modificarWebsFavoritas} datos={this.props.websFavoritas} tipo={"webs"}/>
             )
         }
         else {
@@ -42,9 +42,9 @@ class GamesDataContainer extends React.Component<Props, {}> {
 const mapStateToProps = (state: any) : ReduxState => {
     return {
         user: state.NavbarReducer.user,
-        juegosFavoritos: state.NavbarReducer.juegosFavoritos,
+        websFavoritas: state.NavbarReducer.websFavoritas,
     }
 }
 
 // @ts-ignore
-export default connect(mapStateToProps, {})(GamesDataContainer);
+export default connect(mapStateToProps, {})(WebsFavDataContainer);

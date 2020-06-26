@@ -58,7 +58,7 @@ export const enviarImagenAction = (url: string) => async (dispatch: Dispatch<any
 
     dispatch({
         type: CHANGE_USER_IMAGE_ACTION,
-        payload: body
+        payload: url
     })
 }
 

@@ -1,5 +1,12 @@
 import {Dispatch} from "react";
-import {NEW_COMMENT, VACIAR_REDUCER_VIDEOJUEGO, VALORACIONES_ACTION, VIDEOGAME_ACTION} from "../../../redux/Types";
+import {
+    JUEGOS_FAVORITOS_MODIFICADOS,
+    NEW_COMMENT,
+    SESSION_ACTION,
+    VACIAR_REDUCER_VIDEOJUEGO,
+    VALORACIONES_ACTION,
+    VIDEOGAME_ACTION
+} from "../../../redux/Types";
 
 //Maneja la petición de los videojuegos
 export const videogameActionCreator = (slug: string) => async (dispatch: Dispatch<any>) => {
@@ -62,5 +69,13 @@ export const vaciarReducerVideojuego = () => {
     return {
         type: VACIAR_REDUCER_VIDEOJUEGO,
         payload: ""
+    }
+}
+
+export const modificarNavbarJuegosFavoritos = (listaJuegos: any[])  => {
+
+    return {
+        type: JUEGOS_FAVORITOS_MODIFICADOS,
+        payload: listaJuegos
     }
 }

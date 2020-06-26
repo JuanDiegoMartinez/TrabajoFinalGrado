@@ -12,6 +12,7 @@ import SendIcon from '@material-ui/icons/Send';
 import {handleButtonValidate} from "./validation/Validation";
 import {AccountCircle, Visibility, VisibilityOff} from "@material-ui/icons";
 import firebase from 'firebase';
+import Noty from "noty";
 
 interface ModifyDataProps {
     comentarios: Valoracion[],
@@ -60,6 +61,7 @@ class ModifyDataView extends React.Component<Props, State> {
                 this.props.onImagenSubmit(url);
             })
         })
+        new Noty({text: "Imagen cambiada con éxito.", type: 'success', theme: 'metroui', timeout: 3000, layout: "topRight"}).show();
     }
 
     //formProps contiene las funciones y datos
@@ -108,6 +110,7 @@ class ModifyDataView extends React.Component<Props, State> {
 
         if (!(this.props.initialValues === formValues)) {
             this.props.onFormUserDataSubmit(formValues);
+            new Noty({text: "Cambios en los datos realizados con éxito.", type: 'success', theme: 'metroui', timeout: 3000, layout: "topRight"}).show();
         }
     }
 

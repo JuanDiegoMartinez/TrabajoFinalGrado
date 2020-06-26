@@ -7,6 +7,7 @@ import {Box, Button} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import {Rating} from "@material-ui/lab";
 import SendIcon from "@material-ui/icons/Send";
+import Noty from "noty";
 
 interface ComentariosProps {
     comentarios: Valoracion[]
@@ -125,6 +126,8 @@ class Comentarios extends React.Component<Props, State> {
         });
 
         this.props.onCommentsSubmit(comments);
+
+        new Noty({text: "Cambios en los comentarios realizados con éxito.", type: 'success', theme: 'metroui', timeout: 3000, layout: "topRight"}).show();
 
         //Comprueba que todos los valores sean correctos, si no son correctos no envía en formulario
         //await handleButtonValidate(formValues);

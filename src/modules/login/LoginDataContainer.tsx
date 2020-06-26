@@ -6,20 +6,25 @@ import {newLogin} from "./actions/LoginActions";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import ModalComponent from "../../models/templates/ModalComponent";
 import {borrarCookies} from "../../conexion/borrarCookies";
+import history from "../../history";
+
+interface LoginDataContainerProps {
+    id: string | undefined
+}
 
 interface ReduxState {
     user: any
 }
 
 interface Actions {
-    newLogin: (formValues: Login) => any
+    newLogin: (formValues: Login, prueba: any) => any
 }
 
 interface State {
     recuperarPassword: boolean
 }
 
-type Props = ReduxState & Actions;
+type Props = ReduxState & Actions & LoginDataContainerProps;
 
 class LoginDataContainer extends React.Component<Props, State> {
 
@@ -37,7 +42,8 @@ class LoginDataContainer extends React.Component<Props, State> {
     }
 
     onLoginSubmit = (values: Login) : void => {
-        this.props.newLogin(values);
+
+        this.props.newLogin(values, this.props.id);
     }
 
     render(): React.ReactNode {

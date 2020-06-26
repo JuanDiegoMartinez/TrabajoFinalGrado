@@ -1,5 +1,5 @@
 import {Dispatch} from "react";
-import {WEBS_ACTION} from "../../../redux/Types";
+import {JUEGOS_FAVORITOS_MODIFICADOS, WEBS_ACTION, WEBS_FAVORITAS_MODIFICADAS} from "../../../redux/Types";
 
 export const websAction = () => async (dispatch: Dispatch<any>) => {
 
@@ -35,4 +35,12 @@ export const websBusquedaAction = (pestanaActual: number | undefined, selecciona
         type: WEBS_ACTION,
         payload: body
     })
+}
+
+export const modificarNavbarWebsFavoritas = (listaWebs: any[])  => {
+
+    return {
+        type: WEBS_FAVORITAS_MODIFICADAS,
+        payload: listaWebs
+    }
 }

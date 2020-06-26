@@ -36,10 +36,6 @@ export default class Carpetas extends React.Component<CarpetasProps, State> {
         })
     }
 
-    componentWillUnmount(): void {
-        this.props.modificarFavoritos(this.state.fileMap)
-    }
-
     shouldComponentUpdate(nextProps: Readonly<CarpetasProps>, nextState: Readonly<State>, nextContext: any): boolean {
         this.props.modificarFavoritos(nextState.fileMap);
         return true;
@@ -54,6 +50,7 @@ export default class Carpetas extends React.Component<CarpetasProps, State> {
             }
             else {
                 //abrir una nueva pestaña con la web
+                console.log("hehehe")
             }
 
         }

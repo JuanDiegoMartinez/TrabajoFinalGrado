@@ -9,29 +9,44 @@
     flex-direction: column;
     align-items: center;
 
-    .titulo {
-      font-size: 30px;
-      text-align: center;
+    .divInterior {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
       margin-bottom: 20px;
+
+      .tituloJuego {
+        font-size: 35px;
+        text-align: center;
+        margin: {
+          left: auto;
+          right: auto;
+        };
+      }
+
+      .botonFavoritos {
+        padding: 0;
+
+        .iconoFavoritos {
+          color: red;
+          height: 50px;
+          width: 50px;
+        }
+      }
     }
 
     .grid {
 
-      div {
-
-
-        .imagenJuego {
-          float: left;
-          width: 40%;
-          margin: {
-            right: 10px;
-            bottom: 10px;
-          }
+      .imagenJuego {
+        float: left;
+        width: 40%;
+        margin: {
+          right: 10px;
+          bottom: 10px;
         }
-
-        .botonFavoritos {
-          float: left;
-        }
+      }
+      .texto {
+        text-align: justify;
       }
     }
   }

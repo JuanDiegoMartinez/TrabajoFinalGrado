@@ -13,7 +13,7 @@ import {
     ROUTE_REGISTER,
     ROUTE_VIDEOGAME,
     ROUTE_VIDEOGAMES,
-    ROUTE_WEBS
+    ROUTE_WEBS, ROUTE_WEBS_FAVORITAS
 } from "./routes";
 import {History} from "history";
 import RegisterScreen from "../modules/register/RegisterScreen";
@@ -29,6 +29,7 @@ import WebsScreen from "../modules/webs/WebsScreen";
 import PublishersScreen from "../modules/publishers/allPublishers/PublishersScreen";
 import PublisherScreen from "../modules/publishers/onePublisher/PublisherScreen";
 import GamesScreen from "../modules/favourites/games/GamesScreen";
+import WebsFavScreen from "../modules/favourites/webs/WebsFavScreen";
 
 export interface RoutingProps {
     history: History,
@@ -53,6 +54,7 @@ export default class Routing extends React.Component<RoutingProps, any> {
                     <Route path={ROUTE_EDITORES} exact component={PublishersScreen}/>
                     <Route path={ROUTE_EDITOR} exact component={PublisherScreen}/>
                     <Route path={ROUTE_JUEGOS_FAVORITOS} exact component={GamesScreen}/>
+                    <Route path={ROUTE_WEBS_FAVORITAS} exact component={WebsFavScreen}/>
                 </Router>
             </div>
         );

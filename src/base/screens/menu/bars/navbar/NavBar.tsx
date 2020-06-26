@@ -71,9 +71,9 @@ class NavBar extends React.Component<Props, State> {
                     :
                         <div className="divSesionIniciada">
                             <div className="divUsuario" onClick={this.handleMenu}>
-                                <Avatar src={this.props.imagen} className="avatar"/>
-                                {this.props.user}
                                 <MoreVertIcon />
+                                {this.props.user}
+                                <Avatar src={this.props.imagen} className="avatar"/>
                             </div>
 
                             <Menu style={{top: '40px'}}
