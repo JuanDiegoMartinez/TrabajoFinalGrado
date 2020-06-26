@@ -88,9 +88,9 @@ class Comentarios extends React.Component<Props, State> {
     renderComentarios = () => {
         return this.props.comentarios.map((comentario: Valoracion) => {
             return (
-                <Grid item xs={12}>
-                    <p>Comentario del juego: {comentario.slug}</p>
-                    <Box component="fieldset" mb={3} borderColor="transparent">
+                <Grid item xs={12} className="gridComentario">
+                    <p className="comentarioJuego">Comentario del juego: {comentario.slug}</p>
+                    <Box component="fieldset" mb={3} borderColor="transparent" className="rating">
                         <Rating
                             precision={0.5}
                             value={this.state.valoraciones[this.props.comentarios.indexOf(comentario)]}
@@ -136,9 +136,11 @@ class Comentarios extends React.Component<Props, State> {
     render(): React.ReactNode {
         if (this.props.comentarios !== undefined) {
             return (
-                <form onSubmit={this.props.handleSubmit(this.handleCommentsSubmit)}>
+                <form onSubmit={this.props.handleSubmit(this.handleCommentsSubmit)} className="formComentarios">
                     {this.renderComentarios()}
-                    <Button type="submit" color="primary" variant="contained" startIcon={<SendIcon/>}>Modificar Comentarios</Button>
+                    <Button type="submit" color="primary" variant="contained" startIcon={<SendIcon/>}
+                    style={{display: "flex", marginRight: "0", marginLeft:"auto", marginBottom: "10px"}}
+                    >Modificar Comentarios</Button>
                 </form>
             )
         }

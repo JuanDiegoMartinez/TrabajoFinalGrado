@@ -30,7 +30,7 @@ class GamesDataContainer extends React.Component<Props, {}> {
         }
         else {
             return (
-                <div>
+                <div className="divSinIniciarSesion">
                     Para ver tus favoritos debes iniciar sesión
                 </div>
             )

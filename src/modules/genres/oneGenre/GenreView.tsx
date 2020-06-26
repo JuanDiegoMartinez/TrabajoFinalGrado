@@ -2,7 +2,7 @@ import React from "react";
 import {Genre} from "../../../models/data/Genre";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import {Container} from "@material-ui/core";
+import {Backdrop, CircularProgress, Container} from "@material-ui/core";
 import {Link} from "react-router-dom";
 
 interface GenreViewProps {
@@ -27,7 +27,11 @@ export default class GenreView extends React.Component<GenreViewProps, {}> {
     render() : React.ReactNode {
 
         if (!this.props.genero && !this.props.juegos) {
-            return null;
+            return(
+                <Backdrop open={true}>
+                    <CircularProgress color="inherit" />
+                </Backdrop>
+            );
         }
 
         const {name, urlImage, description} = this.props.genero;
@@ -44,7 +48,7 @@ export default class GenreView extends React.Component<GenreViewProps, {}> {
                             <aside className="texto">{description}</aside>
                         </Grid>
                         <Grid item xs={12}>
-                            <p>Juegos relacionados con el género:</p>
+                            <p className="parrafoGE">Juegos relacionados con el género:</p>
                         </Grid>
                         {this.renderJuegos()}
                     </Grid>

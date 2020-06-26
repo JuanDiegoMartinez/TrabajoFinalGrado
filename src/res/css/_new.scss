@@ -24,12 +24,14 @@
 
     .grid {
 
-      .imagen {
+      .imagenNoticia {
         float: left;
         width: 40%;
         margin: {
-          right: 10px;
+          right: 15px;
         }
+        box-shadow: $shadow;
+        border-radius: 8px;
       }
 
       .texto {

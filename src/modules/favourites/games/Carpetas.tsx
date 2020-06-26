@@ -237,7 +237,7 @@ export default class Carpetas extends React.Component<CarpetasProps, State> {
         }
 
         return (
-            <div style={{height: 540}}>
+            <div style={{height: 750, width: '100%'}}>
                 {this.renderizarModal(this.state.open)}
                 <FileBrowser files={files} folderChain={folderChain} thumbnailGenerator={this.thumbnailGenerator}
                              onFileOpen={this.handleFileOpen} onFolderCreate={this.handleFolderCreate}

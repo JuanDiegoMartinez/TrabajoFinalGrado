@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {Publisher} from "../../../models/data/Publisher";
-import {publisherAction} from "../actions/PublisherActions";
+import {publisherAction, vaciarReducerEditor} from "../actions/PublisherActions";
 import PublisherView from "./PublisherView";
 
 interface ExternalProps {
@@ -15,6 +15,7 @@ interface ReduxState {
 
 interface ActionProps {
     publisherAction: (editor: string) => Publisher
+    vaciarReducerEditor: () => void
 }
 
 type Props = ReduxState & ActionProps & ExternalProps;
@@ -23,6 +24,10 @@ class PublisherDataContainer extends React.Component<Props, {}> {
 
     componentWillMount(): void {
         this.props.publisherAction(this.props.id);
+    }
+
+    componentWillUnmount(): void {
+        this.props.vaciarReducerEditor();
     }
 
     render() : React.ReactNode {
@@ -42,4 +47,4 @@ const mapStateToProps = (state: any) : ReduxState => {
 }
 
 // @ts-ignore
-export default connect(mapStateToProps, {publisherAction})(PublisherDataContainer);
+export default connect(mapStateToProps, {publisherAction, vaciarReducerEditor})(PublisherDataContainer);

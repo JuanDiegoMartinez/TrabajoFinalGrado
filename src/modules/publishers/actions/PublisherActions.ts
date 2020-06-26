@@ -1,5 +1,5 @@
 import {Dispatch} from "react";
-import {PUBLISHER_ACTION} from "../../../redux/Types";
+import {PUBLISHER_ACTION, VACIAR_REDUCER_EDITOR, VACIAR_REDUCER_GENRE} from "../../../redux/Types";
 
 export const publisherAction = (editor: string) => async (dispatch: Dispatch<any>) => {
 
@@ -17,4 +17,12 @@ export const publisherAction = (editor: string) => async (dispatch: Dispatch<any
         type: PUBLISHER_ACTION,
         payload: body
     })
+}
+
+export const vaciarReducerEditor = () => {
+
+    return {
+        type: VACIAR_REDUCER_EDITOR,
+        payload: ""
+    }
 }

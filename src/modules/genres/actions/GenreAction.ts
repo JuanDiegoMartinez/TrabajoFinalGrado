@@ -1,5 +1,5 @@
 import {Dispatch} from "react";
-import {GENRE_ACTION} from "../../../redux/Types";
+import {GENRE_ACTION, VACIAR_REDUCER_GENRE, VACIAR_REDUCER_NOTICIA} from "../../../redux/Types";
 
 export const genreAction = (genero: string) => async (dispatch: Dispatch<any>) => {
 
@@ -17,4 +17,12 @@ export const genreAction = (genero: string) => async (dispatch: Dispatch<any>) =
         type: GENRE_ACTION,
         payload: body
     })
+}
+
+export const vaciarReducerGenre = () => {
+
+    return {
+        type: VACIAR_REDUCER_GENRE,
+        payload: ""
+    }
 }
