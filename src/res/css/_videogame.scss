@@ -49,8 +49,153 @@
       }
       .texto {
         text-align: justify;
+        margin-bottom: 20px;
       }
     }
+    .nombreJuego {
+      font-size: 15px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+
+    .metascore-verde {
+      border: 2px solid green;
+      color: green;
+      text-align: center;
+      display: table;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 5px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    .metascore-amarillo {
+      border: 2px solid #E3CE0B;
+      color: #E3CE0B;
+      text-align: center;
+      display: table;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 5px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    .metascore-rojo {
+      border: 2px solid red;
+      color: red;
+      text-align: center;
+      display: table;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 5px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    .valorJuego {
+      text-align: center;
+    }
+    .website {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .websiteLink {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+    .imagenesJuego {
+      text-align: center;
+      font-size: 30px;
+      margin-top: 5px;
+      font-weight: bold;
+    }
+    .gameplay {
+      text-align: center;
+      font-size: 30px;
+      margin-top: 30px;
+      font-weight: bold;
+    }
+    .video {
+      display: flex;
+      margin-right: auto;
+      margin-left: auto;
+      border-radius: 10px;
+      box-shadow: $shadow;
+    }
+    .resenas {
+      text-align: center;
+      font-size: 30px;
+      margin-top: 30px;
+      font-weight: bold;
+    }
+    .sinComentarios {
+      text-align: center;
+    }
+
+    .todoComen {
+      margin-bottom: 30px;
+
+      &::after {
+        border: 1px solid black;
+      }
+
+      .divComen {
+        display: flex;
+        margin-bottom: 10px;
+
+        .avatarUsu {
+        }
+
+        .nombreUsu {
+          margin-top: 10px;
+          font-weight: bold;
+          font-size: 20px;
+        }
+
+        .caja {
+          margin: auto 0 auto auto;
+        }
+      }
+      .parrafoComen {
+        text-align: justify;
+      }
+      .fechaComen {
+        text-align: right;
+        font-size: 15px;
+        margin-top: 5px;
+      }
+      .ultimo {
+        border-bottom: 1px solid black;
+        margin-top: 10px;
+      }
+    }
+  }
+  .InicioSesionAjustes {
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .divPuntuacion {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+
+    p {
+      margin-top: 5px;
+    }
+    .cajaComentario {
+      margin-bottom: 0;
+    }
+  }
+
+  .botonEnviaComen {
+    margin-top: 10px;
+    display: flex;
+    margin-right: 0;
+    margin-left: auto;
   }
 }
 

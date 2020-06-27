@@ -87,6 +87,44 @@ export default class VideoGameView extends React.Component<VideoGameViewProps, {
         )
     }
 
+    puntuacion = (metacritic: string) => {
+
+        const pun = Number.parseInt(metacritic);
+
+        if (pun >= 80) {
+            return (<div className="metascore-verde">{metacritic}</div>)
+        }
+        else if (pun > 50) {
+            return (<div className="metascore-amarillo">{metacritic}</div>)
+        }
+        else {
+            return (<div className="metascore-rojo">{metacritic}</div>)
+        }
+    }
+
+    valoracionesUsuarios = (valoraciones: any[]) => {
+
+        if (valoraciones.length === 0) {
+            return (<div className="sinComentarios"> Todavía no hay ningún comentario.</div>)
+        }
+        else {
+            return this.props.valoraciones.map((valoracion: Valoracion) => (
+                <div className="todoComen">
+                    <div className="divComen">
+                        <Avatar src={valoracion.image} className="avataUsu" style={{marginRight: '15px', width: '50px', height: '50px'}}/>
+                        <p className="nombreUsu">{valoracion.user}</p>
+                        <Box component="fieldset" mb={3} borderColor="transparent" className="caja">
+                            <Rating value={valoracion.rating} readOnly precision={0.5}/>
+                        </Box>
+                    </div>
+                    <div className="parrafoComen"> {valoracion.comment} </div>
+                    <div className="fechaComen"> {valoracion.date}</div>
+                    <div className="ultimo"/>
+                </div>
+            ))
+        }
+    }
+
     render() : React.ReactNode {
 
         if (!this.props.videojuego) {
@@ -115,44 +153,44 @@ export default class VideoGameView extends React.Component<VideoGameViewProps, {
                             <aside className="texto" id="textoVideojuego"> {this.props.videojuego.description}</aside>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <div>MetaScore:</div>
-                            <div>{metacritic}</div>
+                            <div className="nombreJuego" >MetaScore</div>
+                            {this.puntuacion(metacritic)}
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <div>urlMetacritic: </div>
-                            <div>{urlMetacritic}</div>
+                            <div className="nombreJuego">urlMetacritic </div>
+                            <div className="valorJuego">{urlMetacritic === "N/A" ? "N/A" : <Link href={urlMetacritic} target="_blank"> {urlMetacritic} </Link>}</div>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <div>Platformas: </div>
-                            <div>{platforms.map((plataforma: any) => { return(platforms.indexOf(plataforma) === platforms.length - 1 ? plataforma : plataforma + ", ")})} </div>
+                            <div className="nombreJuego">Platformas </div>
+                            <div className="valorJuego">{platforms.map((plataforma: any) => { return(platforms.indexOf(plataforma) === platforms.length - 1 ? plataforma : plataforma + ", ")})} </div>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <div>Fecha de lanzamiento: </div>
-                            <div>{lanzamiento}</div>
+                            <div className="nombreJuego">Fecha de lanzamiento </div>
+                            <div className="valorJuego">{lanzamiento}</div>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <div>Generos: </div>
-                            <div>{genres.map((genre: any) => { return(genres.indexOf(genre) === genres.length - 1 ? genre : genre + ", ")})} </div>
+                            <div className="nombreJuego">Generos </div>
+                            <div className="valorJuego">{genres.map((genre: any) => { return(genres.indexOf(genre) === genres.length - 1 ? genre : genre + ", ")})} </div>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <div>Desarrolladores: </div>
-                            <div>{developers.map((desarrolador: any) => { return(developers.indexOf(desarrolador) === developers.length - 1 ? desarrolador : desarrolador + ", ")})} </div>
+                            <div className="nombreJuego">Desarrolladores </div>
+                            <div className="valorJuego">{developers.map((desarrolador: any) => { return(developers.indexOf(desarrolador) === developers.length - 1 ? desarrolador : desarrolador + ", ")})} </div>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <div>Etiquetas: </div>
-                            <div>{tags.map((tag: any) => { return(tags.indexOf(tag) === tags.length - 1 ? tag : tag + ", ")})} </div>
+                            <div className="nombreJuego">Etiquetas </div>
+                            <div className="valorJuego">{tags.map((tag: any) => { return(tags.indexOf(tag) === tags.length - 1 ? tag : tag + ", ")})} </div>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <div>Tiendas: </div>
-                            <div>{stores.map((store: any) => {
+                            <div className="nombreJuego">Tiendas </div>
+                            <div className="valorJuego">{stores.map((store: any) => {
                                 return( <Link href={store.url} target="_blank"> {store.name} </Link>)})} </div>
                         </Grid>
                         <Grid item xs={12} >
-                            <div>Website: </div>
-                            <div><Link href={website} target="_blank"> {website} </Link></div>
+                            <div className="website">Website </div>
+                            <div className="websiteLink"><Link href={website} target="_blank"> {website} </Link></div>
                         </Grid>
                         <Grid item xs={12} >
-                            <div>Imágenes del juego: </div>
+                            <div className="imagenesJuego">Imágenes del juego </div>
                         </Grid>
                             {screenshots.map((screen) => (
                                 <Grid item xs={12} sm={6}>
@@ -163,29 +201,20 @@ export default class VideoGameView extends React.Component<VideoGameViewProps, {
                                 </Grid>
                             ))}
                         <Grid item xs={12} >
-                            <div>Gameplay: </div>
+                            <div className="gameplay">Gameplay </div>
                         </Grid>
                         <Grid item xs={12} >
                             <div>
-                                <video controls loop width="570" height="320" muted>
+                                <video controls loop width="570" height="320" muted className="video">
                                     <source src={clip} type="video/mp4"/>
                                 </video>
                             </div>
                         </Grid>
                         <Grid item xs={12} >
-                            <div>Reseñas de usuarios: </div>
+                            <div className="resenas">Reseñas de usuarios </div>
                         </Grid>
                         <Grid item xs={12} >
-                            {this.props.valoraciones.map((valoracion: Valoracion) => (
-                                <div>
-                                    <div style={{display: 'flex'}}> <Avatar src={valoracion.image} /> {valoracion.user} </div>
-                                    <Box component="fieldset" mb={3} borderColor="transparent">
-                                        <Rating value={valoracion.rating} readOnly precision={0.5}/>
-                                    </Box>
-                                    <div> {valoracion.comment} </div>
-                                    <div> {valoracion.date}</div>
-                                </div>
-                            ))}
+                            {this.valoracionesUsuarios(this.props.valoraciones)}
                         </Grid>
                         <Grid item xs={12} >
                             <Comentario user={this.props.user} valoraciones={this.props.valoraciones} onCommentSubmit={this.props.onCommentSubmit} imagen={this.props.imagen} id={this.props.id}/>

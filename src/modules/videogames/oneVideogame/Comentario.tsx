@@ -103,8 +103,7 @@ class Comentario extends React.Component<Props, State> {
         if (this.props.user === "") {
             return (
                 <div>
-                    <p>Para comentar primero debes iniciar sesión</p>
-                    <Link component={RouterLink} to="/login"> Iniciar sesión </Link>
+                    <p className="InicioSesionAjustes">Para comentar primero debes <Link component={RouterLink} to="/login"> Iniciar sesión </Link></p>
                 </div>
             )
         }
@@ -115,8 +114,8 @@ class Comentario extends React.Component<Props, State> {
                 if (valoracion.user === this.props.user) {
                     haComentado = true;
                     return (
-                        <div><p>Ya has comentado</p>
-                            <Link component={RouterLink} to={`/usuario/${this.props.user}`}> Ajustes </Link>
+                        <div>
+                            <p className="InicioSesionAjustes">Ya has comentado, para modificar tu comentario debes ir a <Link component={RouterLink} to={`/usuario/${this.props.user}`}> Ajustes </Link> </p>
                         </div>
                     )
                 }
@@ -125,8 +124,9 @@ class Comentario extends React.Component<Props, State> {
             if (!haComentado) {
                 return (
                     <div>
-                        <div>Comentario del usuario: </div>
-                        <Box component="fieldset" mb={3} borderColor="transparent">
+                        <div className="divPuntuacion">
+                        <p>Puntuación: </p>
+                        <Box component="fieldset" mb={3} borderColor="transparent" className="cajaComentario">
                             <Rating
                                 precision={0.5}
                                 value={this.state.rating}
@@ -137,6 +137,7 @@ class Comentario extends React.Component<Props, State> {
                                 }}
                             />
                         </Box>
+                        </div>
                         <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
                             <Field name="comentario" component={this.renderInput} label="Comentario" type="text" />
                             <Button
@@ -144,6 +145,7 @@ class Comentario extends React.Component<Props, State> {
                                 color="primary"
                                 endIcon={<Icon>send</Icon>}
                                 type="submit"
+                                className="botonEnviaComen"
                             >
                                 Enviar comentario
                             </Button>
