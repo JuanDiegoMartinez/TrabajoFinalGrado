@@ -49,8 +49,7 @@ export default class Carpetas extends React.Component<CarpetasProps, State> {
                 history.push(`/videojuegos/${file.id}`);
             }
             else {
-                //abrir una nueva pestaña con la web
-                console.log("hehehe")
+                window.open(file.id)
             }
 
         }

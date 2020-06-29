@@ -8,4 +8,5 @@ export const desarrolladores = ['Feral Interactive', 'Ubisoft', 'Valve Software'
 'Square Enix', 'Capcom', 'Bethesda Softworks', '2K', 'Rockstar North', 'Bethesda Game Studios', 'Konami Digital Entertainment',
 'id Software', 'Nintendo', 'Activision', 'FromSoftware', 'Naughty Dog', 'Obsidian Entertainment', 'Rockstar Games', 'CD PROJEKT RED'];
 
-export const tipos = ['Videojuegos', 'Noticias', 'Tecnología', 'Móviles'];
+export const tipos = ['Videojuegos', 'Noticias', 'Tecnología', 'Moviles', 'Guías', 'Mods', 'Comprar Juegos', 'Comparador',
+'Webs'];
