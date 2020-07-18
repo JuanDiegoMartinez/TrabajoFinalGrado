@@ -102,7 +102,7 @@ class LoginView extends React.Component<Props> {
                         <Grid container>
                             <Grid item xs>
                                 <Link style={{cursor: 'pointer'}}  onClick={this.recuperarPassword}>
-                                    Olvidaste la contraseña? (posible gmail)
+                                    Olvidaste la contraseña?
                                 </Link>
                             </Grid>
                             <Grid item>
